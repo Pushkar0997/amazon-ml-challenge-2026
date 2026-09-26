@@ -1,0 +1,24 @@
+# organizer dataset — 2.5GB, never commit
+student_resource/dataset/*
+# student_resource/eda/*
+student_resource/eda/cache/
+
+# regenerated outputs — rebuilt by the pipeline, not source of truth
+output/*.tsv
+
+# python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# model artifacts / caches
+*.ckpt
+*.pt
+*.joblib
+.cache/
+wandb/
+
+# os / editor
+.DS_Store
+.ipynb_checkpoints/

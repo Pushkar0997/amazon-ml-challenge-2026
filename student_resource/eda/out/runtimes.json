@@ -1,0 +1,32 @@
+{
+ "step1_inventory": {
+  "seconds": 149.9,
+  "peak_gb": 0.68,
+  "note": ""
+ },
+ "step2_labels": {
+  "seconds": 55.0,
+  "peak_gb": 1.09,
+  "note": ""
+ },
+ "step3_test_shape": {
+  "seconds": 0.4,
+  "peak_gb": 0.05,
+  "note": ""
+ },
+ "step5_blocking": {
+  "seconds": 3577.3,
+  "peak_gb": 1.62,
+  "note": "one country at a time; pool streamed twice per country"
+ },
+ "step0_orient": {
+  "seconds": 0.0,
+  "peak_gb": 0.03,
+  "note": ""
+ },
+ "step4_noise": {
+  "seconds": 666.6,
+  "peak_gb": 1.14,
+  "note": ""
+ }
+}

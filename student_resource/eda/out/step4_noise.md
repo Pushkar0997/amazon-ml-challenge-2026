@@ -1,0 +1,214 @@
+## Step 4 — Noise
+
+### Examples: random true-match groups (train; 8 per country, seed-fixed; addresses ≤120 chars)
+
+| group | id | name | address |
+|---|---|---|---|
+| US-1 | S1-898572963 | Platinum Metropolitan Diversified | 1485 Higley Road, Unit 102, Gilbert, AZ |
+|  | S2-575083094 | Platinum Metropolitan | 1485 HIGLEY ROAD, GILBERT, AZ |
+|  | S3-280223720 | Platinum Metropolitan Diversified Corporation | 1485. Higley Rd, Gilbert, Arizona |
+| US-2 | S1-408898281 | Kelly Centers LLC | 1401 Bates Street, Village Of Sauk City, WI |
+|  | S2-626217480 | Kelly Centers Llc | 1401 BATES STREET, SAUK CITY, WI |
+| US-3 | S1-862436045 | Atlantic Platinum Granite Co | 821 Carowood Drive, Salisbury, NC |
+|  | S2-166771330 | Atlantic  Platinum | 821 CAROWOOD DR, SALISBRY, NC |
+|  | S2-433695246 | Atlantic Platinum Granite | CAROWOOD DRIVE, SALISBURY, NC |
+|  | S2-633452194 | Atlantic Platinum Granite-Co | 1027 CAROWOOD DR, SALISBURY, NC |
+|  | S2-690497499 | atlantic platinum granite co | SALISBRY, 821 CAROWOOD DRIVE, NC |
+|  | S3-300101408 | Atlantic Platinum Granite Co. | 821 Carowood Dr, Salisbury, North Carolina |
+| US-4 | S1-935580624 | Golden Yoga | 29W 581 Hawthorne Lane, West Chicago, IL |
+|  | S2-55377226 | Golden Yoga | 29W 581 HAWTHORNE LN, WEST CHICAGO, IL |
+|  | S3-7246576 | Golden Yoga LP |  |
+|  | S3-95296968 | Irinyla doing business as Golden Yoga | 29W 581 Hawthorne Lane, West Chicago, IL |
+|  | S3-817483776 | GOLDEN YOGA | West Chicago, Illinois, Hawthorne Lane |
+|  | S3-854158703 | Golden Ya | 29W 581 Hawthorne Ln, West Chicago, Illinois |
+| US-5 | S1-323610066 | Saint Ministries | 215 Tohatchi Trail, Albuquerque, NM |
+|  | S2-629330957 | saint ministries | 215-A TOHATCHI TRL, ALBUQUERQUE, NM |
+|  | S3-303616772 | Drexjaxcalo dba Saint Ministries | 215 Tohatchi Trail, Albuquerque, NM |
+|  | S3-721222479 | saintministries.com | 215-C Tohatchi Trl, Albuquerque, New Mexico |
+|  | S3-857403294 | Saint Ministries | 215-C Tohatchi Trl, Albuquerque, New Mexico |
+| US-6 | S1-434541996 | Wickstrom, Suellen E., P.A. | 1425 Lubbock Drive, Copperas Cove, TX |
+|  | S3-815055894 | Wickstrom, Suellen E., P.A. Corporation | 425 Lubbock Drive, Copperas Cove, Texas |
+| US-7 | S1-16235427 | Longoria Partners PLLC | 5800 Maudina Avenue, Unit 8, Nashville, TN |
+|  | S2-111220276 | Longoria Partners | 5800 MAUDSNA AVE, NASHVILLE, TN |
+|  | S2-972850187 | Longoria PLLC-Partners | TN, NASHVILLE, 5800 MAUDINA AVENAE |
+|  | S3-188989280 | Longoria Partners | # 8, 800 Maudina Ave, Nashville, Tennessee |
+|  | S3-257060041 | Longoria Partners Partners | 800 Maudina Ave, # 8, Nashville, Tennessee |
+| US-8 | S1-313049382 | Silver Grill | 3912 Montgomery Court, Mount Vernon, WA |
+|  | S2-39231461 | LUMDOVA | 3912 MONTGOMERY CT, MOUNT VERNON, WA |
+|  | S2-217119556 | Silver Grill | WA, 3912 MONTGOMERY COURT, MOUNT VERNON |
+|  | S3-615684420 | Silver Grill Inc. | 3912 Montgomery Ct, Mount Vernon, Washington |
+
+| group | id | name | address |
+|---|---|---|---|
+| India-1 | S1-549986417 | Radium Academy | S. F. 219, Satyam Mall, Opp. Saman Compl Nr. Vishweshwar Mahadev Mandir, Satellite, Ahmedabad, Gujarat |
+|  | S2-436439218 | Radium  Academy |  |
+|  | S2-471470738 | RADIUM ACADEMY COMPANY | S. F. 219, SATYAM MALL, OPP. SAMAN COMPL NR. VISHWESHWAR MAHADEV MANDIR, SATELLITE, AHMEDABAD, Gujarat |
+|  | S2-890900699 | Radium Center | S. F. 219, SATYAM MALL, OPP. SAMAN COMPL NR. VISHWESHWAR MAHADEV MANDIR, SATELLITE, AHMEDABAD, ગુજરાત |
+|  | S3-70012205 | Radium Academy Limited | S. F. 3-219, Ahmedabad Hq Region, Ahmedabad, ગુજરાત |
+|  | S3-270159075 | Radium Ácademy | S. F. 3-219, Satyam Mall, Opp. Saman Compl Nr. Vishweshwar Mahadev Mandir, Satellite, Ahmedabad Hq Region, Ahmedabad, GJ |
+|  | S3-694648268 | Radium Academy |  |
+|  | S3-875328598 | Radium Academy | S. F. 3-219, Satyam Mall, Opp. Saman Compl Nr. Vishweshwar Mahadev Mandir, Satellite, Ahmedabad Hq Region, Ahmedabad, ગ… |
+| India-2 | S1-771677519 | Nirmala Buildcon Private Limited | 106 Palco House, T-10 Main Patel Road Patel Nagar, New Delhi, Central Delhi, Delhi |
+|  | S2-957653489 | Nirmala Nirmala Buildcon Limited Center | NO 106- PALCO HOUSE, T-10 MAIN PATEL ROAD PATEL NAGAR, NEW DELHI, दिल्ली |
+|  | S3-981480953 | Nirmala Buildcon Priavte Limited | 1-06 Palco House, T-10 Main Patel Road Patel Nagar, New Delhi, Delhi, DL |
+| India-3 | S1-535604490 | Property (India) Buildcon Private Limited | Office Number 107, 18/20 Wea Karol Bagh, New Delhi, Delhi |
+|  | S2-244224304 | Property (India) Buildcon Buildcon Private Ltd | PLOT 948 OFFICE NUMBER 107, 18/20 WEA KAROL BAGH, NEW DELHI, Delhi |
+|  | S2-374430834 | Property (India) Buildcon Private | POT 948 OFFICE NUMBER 107, 18/20 WEA KAROL BAGH, NEW DELHI, Delhi |
+|  | S2-637335139 | M/s Property (India) Buildcon Private |  |
+|  | S2-672643353 | Dr Property Property (India) Buildcon Private | PLOT 948 OFFICE NUMBER 107, 18/20 WEA KAROL BAGH, NEW DELHI, दिल्ली |
+|  | S2-771272998 | PROPERTYINDIABUILDCON.COM | दिल्ली, PLOT 948 OFFICE NUMBER 107, 18/20 WEA KAROL BAGH, NEW DELHI |
+|  | S3-782040155 | Property (India) Buildcon Prirvae Limited | Office Number ##107, New Delhi, दिल्ली |
+|  | S3-794910651 | Property (India) Buildcon Private Ltd | Office Number ##107, DL, New Delhi |
+| India-4 | S1-209097152 | TG Investments Pvt. Ltd. | Office No. 1101, The Ambiance Couert, Plot No. 2, Sector 19 D, Vashi, Mumbai, Mumbai City, Maharashtra |
+|  | S2-900120416 | tginvestments.com #84874 | OFFICE NO. 1101, MUMBAI, MUMBAI CITY, Maharashtra |
+|  | S3-44627531 | TG Investments Pvt. | The Ambiance Couert, Plot No. 2, Sector 19 D, Vashi, महाराष्ट्र, <NULL>, Office No. 1101 |
+|  | S3-444943892 | Investments | Office No. 1101, The Ambiance Couert, Plot No. 2, Sector 19 D, Vashi, Mumbai, Mumbai City, Maharashtra |
+| India-5 | S1-21055923 | SLV Marketing Private Limited | 6-3-712/138 &139, G1, Srinivas Apartments, Bansilalbagh, P, Unjagutta, Hyderabad, Telangana |
+|  | S2-17226892 | SLV Marketing Private |  |
+|  | S2-659813683 | 5LV Marketing Private | H.NO C-6-3-712/138 &139, G1, SRINIVAS APARTMENTS, BANSILALBAGH, P, UNJAGUTTA, HYDERABAD, Telangana |
+|  | S3-22444942 | SLV Private Marketing (Limited) | #6-3-712/138 &139, G1, Srinivas Apartments, Bansilalbagh, P, Unjagutta, Hyderabad, TG |
+|  | S3-95693403 | SLV Marketing Private |  |
+|  | S3-614024072 | SLV Marketing Prívate Límited | 6-3-712/138 &139, G1, Srinivas Apartments, Bansilalbagh, P, Unjagutta, Hyderabad, తెలంగాణ |
+|  | S3-717207025 | SLV Marketing Private [Limited] | 6-3-712/138 &139, G1, Srinivas Apartments, Bansilalbagh, P, Unjagutta, Hyderabad, TG |
+|  | S3-980482355 | SLV Marketing Private Límited | H.no 6-3-712/138 &139, G1, Srinivas Apartments, Bansilalbagh, P, Hyderabad, Unjagutta, తెలంగాణ |
+| India-6 | S1-448723024 | Fox Institute of Technology Pvt Ltd | 2Nd Floor, Udayasree Building, Tc No.100/4538-3, Nh Bypass, Kazhakuttom, Thiruvananthapuram, Thiruvananthapuram, Trivan… |
+|  | S2-192816796 | PVT FOX INSTITUTE OF TECHNOLAOGY LTD | 2ND FLOOR, UDAYASREE BUILDING, TC NO.100/4538-3, NH BYPASS, KAZHAKUTTOM, THIRUVANANTHAPURAM, TRIVANDRUM, കേരളം |
+|  | S2-360889255 | FOX INSTITUTE OF TECHNOLOGY PVT LIMITED | 2ND FLOOR, UDAYASREE BUILDING, TC NO.100/4538-3, NH BYPASS, KAZHAKUTTOM, THIRUVANANTHAPURAM, THIRUVANANTHAPURAM, Kerala |
+|  | S2-559602147 | FOX INSTITUTE OF TECHNOLOGY PVT (LTD) | H.NO 2ND FLOOR, UDAYASREE BUILDING, TC NO.100/4538-3, NH BYPASS, KAZHAKUTTOM, THIRUVANANTHAPURAM, THIRUVANANTHAPURAM, ക… |
+| India-7 | S1-725285004 | Anand Food Private Limited | 18 2 279, Jangammet, Hyderabad, Telangana |
+|  | S2-268902247 | ఆనంద్ ఫుడ్ ప్రైవేట్ లిమిటెడ్ | Telangana, HYDERABAD, 18 2 279, HYDERABAD |
+|  | S2-917527395 | Anand Food Private  Limited | 18 2 279, JANGAMMET, HYDERABAD, తెలంగాణ |
+|  | S3-132625795 | Anand Food Pirvre Limited | Hyderabad, No G-18 2 279, Hyderabad, TG, Jangammet |
+| India-8 | S1-239907566 | Prospect Brothers Private Limited | H No. 1390 Jain Mandir Shankaracharya Nagar, Bhopal, Madhya Pradesh |
+|  | S2-155509502 | Prospect Limited Private Brothers | H NO. 1390  JAIN MANDIR SHANKARACHARYA NAGAR, BHOPAL, Madhya Pradesh |
+|  | S2-767139104 | Prospect Brothers Prívate Ltd | H.NO 1390 JANI MANDIR SHANKARACHARYA NAGAR, BHOPAL, मध्य प्रदेश |
+|  | S2-959702280 | Prospect Brothers Private | NO 1390  JAIN MANDIR SHANKARACHARYA NAGAR, BHOPAL, मध्य प्रदेश |
+|  | S3-34097337 | Prospect Private Limited Center | H.no D/1390 Jain Mandir Shankaracharya Nagar, Bhopal, MP |
+|  | S3-109929848 | Piamate Prospect Brothers Limited | Bhopal, H No. D/1390 Jain Mandir Shankaracharya Nagar, Bhopal, MP |
+
+### Examples: 5 hardest true pairs per country (lowest normalised name-token Jaccard; ties broken at random)
+
+| country | jaccard | S1 name / address | match name / address |
+|---|---|---|---|
+| US | 0.00 | S1-197418945: Walker & Anguiano LLC / 153 High Pine Loop, Wells, ME | S3-270640157: Haloorbi / 153 High Pine Loop, Wells, Maine |
+| US | 0.00 | S1-708830433: # 1 BH Kimco LLC / 45 Main St(central Village), Unit Unit 409, Plainfield, CT | S3-102569167: 1bh.Com / #45 Main St(Central Village), Unit Unit 409, Plainfield, Co… |
+| US | 0.00 | S1-919785603: Vaughn Tailwind Inc / 6703 Main Street, Cherry Creek, NY | S3-740657549: vaughntailwind.com / 6703 Main St, Cherry Creek, New York |
+| US | 0.00 | S1-973444482: Innovative Frontier Intermediate LP / 500 Webster Road, Unit 495, Auburn, AL | S3-297847753: innovativefrontierintermediate.com / 500 Webster Road, Unit 495, Auburn, Alabama |
+| US | 0.00 | S1-453626948: Apex Investment Partners / 20748 Applegate Road, Maple Heights, OH | S3-97548133: Apexinvestmentpartners.Com / 20748 Applegate Rd, Maple Heights, Ohio |
+| India | 0.00 | S1-957874620: Dream Impex Limited / No. 105/7-1, 7Th A Cross, Mig, Khb Colony, Bangalore North,… | S2-415551402: ಡ್ರೀಮ್ ಇಂಪೆಕ್ಸ್ ಲಿಮಿಟೆಡ್ / NO. 105/7-1, 7TH A CROSS, MIG, KHB COLONY, BANGALORE NORTH,… |
+| India | 0.00 | S1-271860899: Lotus Food Private Limited / H.No 922, Mandgaon, Dist. Aurangabad, Aurangabad, Maharasht… | S3-128584506: #lotusfood / Aurangabad, H.no 922, Aurangabad, महाराष्ट्र |
+| India | 0.00 | S1-252246367: Unique Sunrise Builders / Flat No. 102, Plot No. 3, H. No. 7-40/1, R.J. Tower, Golcon… | S3-745611481: Orbigild / Flat No. 102, Plot No. 3, H. No. 7-40/1, R.j. Tower, Hydera… |
+| India | 0.00 | S1-115533158: Future Hospitality Private Limited / 28 Black Burn Lane 4Th Floor, Kolkata, Calcutta, West Bengal | S3-687682649: Aviveo / No D/28 Black Burn Lane 4Th Floor, Kolkata, Calcutta, WB |
+| India | 0.00 | S1-185354584: Tech Products Private Limited / Little Flower No.7, Suite6, 2Nd Flr, 28Th Rd, Bandra, Mumba… | S3-165497134: टेक प्रोडक्ट्स प्राइवेट लिमिटेड / 211 Little Flower No.7, Suite6, 2Nd Flr, 28Th Rd, Bandra, M… |
+
+### Examples: France (test, unlabeled) — 10 random S1 rows then 10 random S2/S3 rows
+
+| id | name | address |
+|---|---|---|
+| S1-518309667 | Petit (France) Amicale SAS | 6 RUE Auber, Lille, Hauts-de-France |
+| S1-692116271 | Pharmacie Proprietaires | 46 Rue de Bailleul, Tourcoing, Hauts-de-France |
+| S1-92324574 | Coulisses & Frères EURL | 45 Rue Nuyens, Bordeaux, Nouvelle-Aquitaine |
+| S1-720382941 | Defense Amicale (France) SAS | 15 RUE Lehuede, Nantes, Pays de la Loire |
+| S1-517352198 | Union de Aigua | 3 Rue Femy, Lille, Hauts-de-France |
+| S1-702007491 | Ets Indigo SAS | 17 Rue Rémy Cogghe, Roubaix, Hauts-de-France |
+| S1-692833701 | Protection Collectif EURL | 10 Rue de l’Albatros, Pornic, Pays de la Loire |
+| S1-706448198 | Merite Soins SAS | 11 Bis Rue du Brûlis, Nantes, Pays de la Loire |
+| S1-218641580 | Pharmacie Juifs | 48 Rue du Fort Louis, Dunkerque, Hauts-de-France |
+| S1-807912257 | Institut de Local | 5 Rue de la Caone Cazaux, La Teste-de-Buch, Nouvelle-Aquitaine |
+| S2-925351342 | Lycée Mârie | 59 RTE. DU CAP FERRET GRAND PIQUEY, LEGE-CAP-FERRET |
+| S2-918045201 | All Sport Distribution SARL | NO. 7 ALL. DU TTÉÂTRE, SAINT-HERBLAIN |
+| S2-250370532 | TLS Ecole EURL | 22 RUE DE NORMANDIE, DUNKERQUE |
+| S2-864582597 | JWZ Amis  SAS | 70 RUE JAMES WATT, LILLE |
+| S2-395315736 | Azaé Transports SA | N°237 R. DES BOIS BLANCS, LILLE, Hauts-de-France |
+| S3-567635549 | departementalecole.com | Pays de la Loire, Nantes, No. 30 Av Jacques Prevert |
+| S3-308432119 | Calais Àmicale SASU | Hauts-de-France, (163) R De Lima, Calais |
+| S3-274484864 | Mes Ehpad SARL (France) | Rue Pierre Bontemps, Dunkerque, Hauts-de-France |
+| S3-25921719 | Main (France) Collège SA | 22 Rue Étienne Ltoste, Bordeaux |
+| S3-437534164 | sasu recherches élémentaire | 758 Rue Georges Vancauwenbergue, Dunkerque |
+
+### True-pair similarity (train, all true pairs; n = pairs)
+
+`eq lower` = names identical after `.lower()`; `eq norm` = identical after baseline normalisation; Jaccard on normalised whitespace tokens.
+
+| country | pair | n | name eq lower | name eq norm | mean name Jaccard | mean addr Jaccard | name J=0 | (0,.25) | [.25,.5) | [.5,.75) | [.75,1) | J=1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| US | S1–S2 | 2,213,074 | 14.15% | 30.50% | 0.708 | 0.638 | 8.0% | 0.3% | 5.8% | 34.1% | 14.1% | 37.8% |
+| US | S1–S3 | 2,365,448 | 13.04% | 30.48% | 0.700 | 0.478 | 7.8% | 0.4% | 7.2% | 34.9% | 12.2% | 37.4% |
+| India | S1–S2 | 1,480,545 | 6.37% | 17.47% | 0.522 | 0.760 | 28.4% | 0.6% | 5.0% | 32.0% | 10.8% | 23.2% |
+| India | S1–S3 | 1,579,298 | 6.67% | 19.96% | 0.577 | 0.604 | 19.7% | 0.9% | 6.7% | 36.4% | 10.7% | 25.7% |
+
+### Postcode/PIN (regex heuristics: India `[1-9]ddd ?ddd` anywhere not adjacent to digits; US 5-digit (+4) as its own comma component or after a 2-letter state; France 5-digit at start of a comma component, not followed by a street word)
+
+| country | pair | true pairs | S1 side has pc | S2/S3 side has pc | both have pc | agree | both |
+|---|---|---|---|---|---|---|
+| US | S1–S2 | 2,213,074 | 0.01% | 0.01% | 78 | 100.0% |
+| US | S1–S3 | 2,365,448 | 0.01% | 0.01% | 160 | 100.0% |
+| India | S1–S2 | 1,480,545 | 0.35% | 1.16% | 4,341 | 98.2% |
+| India | S1–S3 | 1,579,298 | 0.35% | 1.08% | 4,497 | 97.8% |
+
+### Per-record rates by split/source/country (n = records)
+
+`non-ASCII` any char > 0x7F; `accented Latin` U+00C0–024F/1E00–1EFF; `non-Latin script` any other letter block (Devanagari, Tamil, …); `null tok` address has a NULL/N/A/None component; `domain` name contains .com/.in/.net/…; `upper` name fully upper-case.
+
+| split | src | country | n | name non-ASCII | name acc. Latin | name non-Latin | addr non-ASCII | addr acc. Latin | addr non-Latin | addr has postcode | addr null tok | name domain | name upper |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| test | S1 | France | 259,452 | 15.72% | 15.72% | 0.00% | 28.27% | 27.84% | 0.00% | 0.29% | 0.00% | 0.00% | 0.00% |
+| test | S1 | India | 809,986 | 0.00% | 0.00% | 0.00% | 0.06% | 0.06% | 0.00% | 0.36% | 0.00% | 0.00% | 0.00% |
+| test | S1 | US | 663,106 | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.01% | 0.00% | 0.00% | 0.00% |
+| test | S2 | France | 703,378 | 24.54% | 24.54% | 0.00% | 24.05% | 18.15% | 0.00% | 0.21% | 0.00% | 3.49% | 20.80% |
+| test | S2 | India | 2,312,565 | 27.61% | 3.98% | 23.64% | 23.85% | 0.05% | 23.81% | 1.18% | 2.92% | 2.75% | 14.12% |
+| test | S2 | US | 1,871,330 | 6.25% | 6.25% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 3.89% | 3.63% | 20.42% |
+| test | S3 | France | 731,615 | 23.94% | 23.94% | 0.00% | 24.32% | 18.60% | 0.00% | 0.23% | 0.00% | 3.43% | 5.61% |
+| test | S3 | India | 2,405,000 | 18.21% | 4.88% | 13.33% | 22.92% | 0.04% | 22.89% | 1.14% | 2.83% | 2.96% | 2.47% |
+| test | S3 | US | 1,945,701 | 6.39% | 6.39% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 3.73% | 3.48% | 3.20% |
+| train | S1 | India | 883,188 | 0.00% | 0.00% | 0.00% | 0.06% | 0.06% | 0.00% | 0.36% | 0.00% | 0.00% | 0.00% |
+| train | S1 | US | 1,323,633 | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 0.01% | 0.00% | 0.00% | 0.00% |
+| train | S2 | India | 2,017,799 | 27.87% | 4.37% | 23.51% | 23.71% | 0.06% | 23.67% | 1.17% | 2.93% | 3.40% | 14.94% |
+| train | S2 | US | 3,016,817 | 6.70% | 6.70% | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | 3.86% | 4.40% | 21.55% |
+| train | S3 | India | 2,115,547 | 18.49% | 5.32% | 13.17% | 22.53% | 0.05% | 22.49% | 1.11% | 2.75% | 3.64% | 2.58% |
+| train | S3 | US | 3,170,056 | 6.80% | 6.80% | 0.00% | 0.00% | 0.00% | 0.00% | 0.01% | 3.68% | 4.22% | 3.20% |
+
+### Length distributions in characters (n = records; empty addresses included as 0)
+
+| split | src | country | field | n | mean | p5 | p25 | p50 | p75 | p95 | max |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| test | S1 | France | name | 259,452 | 19.4 | 12 | 16 | 19 | 23 | 29 | 57 |
+| test | S1 | France | address | 259,452 | 50.1 | 40 | 44 | 48 | 54 | 65 | 147 |
+| test | S1 | India | name | 809,986 | 26.4 | 13 | 21 | 27 | 32 | 38 | 92 |
+| test | S1 | India | address | 809,986 | 77.7 | 47 | 63 | 76 | 90 | 116 | 268 |
+| test | S1 | US | name | 663,106 | 22.5 | 11 | 17 | 22 | 27 | 35 | 66 |
+| test | S1 | US | address | 663,106 | 35.0 | 26 | 30 | 34 | 39 | 48 | 92 |
+| test | S2 | France | name | 703,378 | 21.1 | 11 | 16 | 20 | 26 | 35 | 61 |
+| test | S2 | France | address | 703,378 | 39.5 | 22 | 31 | 40 | 48 | 59 | 136 |
+| test | S2 | India | name | 2,312,565 | 28.3 | 14 | 22 | 28 | 34 | 44 | 102 |
+| test | S2 | India | address | 2,312,565 | 68.7 | 31 | 54 | 68 | 84 | 110 | 269 |
+| test | S2 | US | name | 1,871,330 | 24.3 | 11 | 18 | 24 | 30 | 39 | 85 |
+| test | S2 | US | address | 1,871,330 | 31.8 | 22 | 28 | 32 | 36 | 43 | 75 |
+| test | S3 | France | name | 731,615 | 21.1 | 10 | 16 | 20 | 26 | 36 | 75 |
+| test | S3 | France | address | 731,615 | 40.0 | 22 | 31 | 41 | 48 | 60 | 139 |
+| test | S3 | India | name | 2,405,000 | 27.9 | 12 | 21 | 28 | 34 | 44 | 103 |
+| test | S3 | India | address | 2,405,000 | 59.4 | 20 | 39 | 59 | 78 | 106 | 267 |
+| test | S3 | US | name | 1,945,701 | 24.6 | 11 | 18 | 24 | 30 | 41 | 85 |
+| test | S3 | US | address | 1,945,701 | 38.8 | 26 | 34 | 39 | 44 | 53 | 107 |
+| train | S1 | India | name | 883,188 | 26.4 | 13 | 21 | 27 | 32 | 38 | 105 |
+| train | S1 | India | address | 883,188 | 77.7 | 47 | 63 | 76 | 90 | 116 | 256 |
+| train | S1 | US | name | 1,323,633 | 22.5 | 11 | 17 | 22 | 27 | 35 | 68 |
+| train | S1 | US | address | 1,323,633 | 35.0 | 26 | 30 | 34 | 39 | 48 | 93 |
+| train | S2 | India | name | 2,017,799 | 27.4 | 13 | 21 | 27 | 33 | 42 | 104 |
+| train | S2 | India | address | 2,017,799 | 68.2 | 30 | 53 | 68 | 83 | 110 | 249 |
+| train | S2 | US | name | 3,016,817 | 23.6 | 11 | 17 | 23 | 29 | 39 | 87 |
+| train | S2 | US | address | 3,016,817 | 31.5 | 21 | 28 | 32 | 36 | 43 | 73 |
+| train | S3 | India | name | 2,115,547 | 27.0 | 12 | 20 | 27 | 33 | 43 | 123 |
+| train | S3 | India | address | 2,115,547 | 59.1 | 19 | 39 | 58 | 77 | 106 | 240 |
+| train | S3 | US | name | 3,170,056 | 24.0 | 11 | 17 | 23 | 30 | 40 | 88 |
+| train | S3 | US | address | 3,170,056 | 38.4 | 25 | 34 | 39 | 44 | 53 | 104 |
+
+### Top-30 normalised tokens per country (S1+S2+S3 pooled; every 4th record; US/India from train, France from test; share = % of sampled records' token occurrences)
+
+- **US name** (tokens=6,637,798): llc 5.5, inc 4.1, l 1.3, center 1.2, partners 1.1, and 1.1, s 1.1, c 1.1, corp 1.0, com 1.0, group 0.9, co 0.8, care 0.8, of 0.7, ltd 0.7, associates 0.6, services 0.6, holdings 0.6, d 0.6, health 0.5, p 0.5, lp 0.4, pc 0.4, a 0.4, clinic 0.4, the 0.4, corporation 0.3, medicine 0.3, pediatric 0.3, service 0.3
+- **US addr** (tokens=10,790,903): street 1.9, road 1.8, drive 1.6, st 1.5, rd 1.4, avenue 1.3, dr 1.3, city 1.2, ave 1.0, tx 1.0, unit 0.9, ny 0.8, new 0.7, nc 0.7, texas 0.7, lane 0.7, oh 0.7, north 0.6, il 0.6, york 0.6, ln 0.5, carolina 0.5, 1 0.5, ct 0.5, tn 0.5, va 0.5, ohio 0.4, virginia 0.4, ma 0.4, az 0.4
+- **India name** (tokens=4,703,796): limited 9.4, private 8.7, ltd 4.3, pvt 2.9, india 1.6, लिमिटेड 1.6, प्राइवेट 1.3, services 1.0, llp 0.9, com 0.8, center 0.7, co 0.6, industries 0.5, enterprises 0.5, brothers 0.5, solutions 0.5, trading 0.5, ventures 0.5, group 0.4, public 0.4, exports 0.4, technologies 0.4, partners 0.3, s 0.3, traders 0.3, m 0.3, प्रा 0.3, लि 0.3, holdings 0.3, international 0.3
+- **India addr** (tokens=13,797,129): no 4.8, delhi 2.3, road 1.8, nagar 1.4, floor 1.4, c 1.1, mumbai 1.1, 1 1.0, a 1.0, maharashtra 1.0, new 0.9, west 0.8, plot 0.8, h 0.8, b 0.8, 2 0.8, o 0.7, bangalore 0.7, pradesh 0.7, mh 0.6, city 0.6, 3 0.5, s 0.5, pune 0.5, kolkata 0.5, near 0.5, d 0.4, block 0.4, door 0.4, south 0.4
+- **France name** (tokens=1,371,369): sarl 6.8, sas 4.6, france 3.0, club 2.4, de 1.9, eurl 1.8, s 1.8, ecole 1.6, amicale 1.5, sa 1.5, comite 1.5, sasu 1.4, sci 1.2, du 1.2, a 1.1, maison 1.1, centre 1.1, groupe 1.0, union 0.9, com 0.9, fils 0.9, developpement 0.9, sportive 0.9, des 0.8, cie 0.8, amis 0.7, college 0.7, federation 0.7, primaire 0.7, international 0.6
+- **France addr** (tokens=3,076,969): de 8.5, rue 5.9, la 3.9, r 2.9, loire 2.7, france 2.4, hauts 2.4, bordeaux 2.3, nouvelle 2.0, aquitaine 2.0, nantes 1.9, lille 1.8, du 1.8, pays 1.7, des 1.6, nord 1.2, gironde 1.2, saint 1.2, calais 1.0, atlantique 1.0, avenue 1.0, tourcoing 0.9, dunkerque 0.9, roubaix 0.9, no 0.8, nazaire 0.7, pessac 0.7, buch 0.6, teste 0.6, n 0.6
+

@@ -1,0 +1,49 @@
+## Step 5 — Blocking probe (train)
+
+Sample (seed 20260925): 3,000 matched + 1,000 singleton S1 entities drawn from all train S1. Pool = all train S2+S3 of the S1's country. Normalisation: lowercase, NFKD + drop Latin combining accents, punctuation/symbols → space, whitespace collapsed. Pools processed one country at a time, streamed from disk (a materialised US name+address TF-IDF matrix would exceed the ~4 GB budget). TF-IDF: char 3-grams, HashingVectorizer n_features=2^23, idf fitted on the pool (sklearn smooth-idf formula), l2-normalised. Mean candidates are averaged over all sampled S1 (matched + singletons).
+
+| country | S1 sampled | matched | singletons | true pairs | true pairs in pool | pool size | S1 with postcode | S1 with no rare name token |
+|---|---|---|---|---|---|---|---|---|
+| US | 2,410 | 1,820 | 590 | 6,606 | 6,606 | 6,186,873 | 0 | 3 |
+| India | 1,590 | 1,180 | 410 | 4,354 | 4,354 | 4,133,346 | 9 | 1 |
+
+| strategy | US pair recall (n=6,606) | US mean cands (n=2,410) | India pair recall (n=4,354) | India mean cands (n=1,590) | all recall | all mean cands |
+|---|---|---|---|---|---|---|
+| a) same postcode | 0.0% | 0.0 | 0.4% | 0.3 | 0.2% | 0.1 |
+| b) shares rare name token (df<1%) | 91.5% | 28,943.9 | 74.4% | 20,615.4 | 84.7% | 25,633.3 |
+| c) name TF-IDF top-5 | 50.2% | 5.0 | 42.4% | 5.0 | 47.1% | 5.0 |
+| c) name TF-IDF top-10 | 60.0% | 10.0 | 49.3% | 10.0 | 55.8% | 10.0 |
+| c) name TF-IDF top-20 | 66.9% | 20.0 | 54.2% | 20.0 | 61.9% | 20.0 |
+| c) name TF-IDF top-50 | 73.7% | 50.0 | 60.5% | 50.0 | 68.5% | 50.0 |
+| d) name+addr TF-IDF top-5 | 88.5% | 5.0 | 75.0% | 5.0 | 83.1% | 5.0 |
+| d) name+addr TF-IDF top-10 | 97.4% | 10.0 | 82.7% | 10.0 | 91.5% | 10.0 |
+| d) name+addr TF-IDF top-20 | 98.2% | 20.0 | 85.6% | 20.0 | 93.2% | 20.0 |
+| d) name+addr TF-IDF top-50 | 98.8% | 50.0 | 88.6% | 50.0 | 94.7% | 50.0 |
+| e) a ∪ c@10 | 60.0% | 10.0 | 49.4% | 10.2 | 55.8% | 10.1 |
+
+### TF-IDF cosine distributions
+
+`top-1 (singletons)` = best pool score for a singleton; `best true (matched)` = highest cosine among the entity's true matches; `top-1 (matched)` = best pool score for a matched entity, true or not.
+
+| country | text | score | n | p5 | p25 | p50 | p75 | p95 | ≥0.5 | ≥0.7 | ≥0.9 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| US | name | top-1 (singletons) | 590 | 0.762 | 0.877 | 0.947 | 1.000 | 1.000 | 100.0% | 98.5% | 67.3% |
+| US | name | best true (matched) | 1,820 | 0.765 | 0.949 | 1.000 | 1.000 | 1.000 | 99.1% | 96.5% | 85.1% |
+| US | name | top-1 (matched) | 1,820 | 0.894 | 1.000 | 1.000 | 1.000 | 1.000 | 100.0% | 99.9% | 94.4% |
+| US | name+addr | top-1 (singletons) | 590 | 0.560 | 0.680 | 0.750 | 0.792 | 0.851 | 98.5% | 70.0% | 0.2% |
+| US | name+addr | best true (matched) | 1,820 | 0.711 | 0.835 | 0.892 | 0.939 | 1.000 | 99.3% | 95.6% | 45.2% |
+| US | name+addr | top-1 (matched) | 1,820 | 0.729 | 0.837 | 0.892 | 0.939 | 1.000 | 99.8% | 96.9% | 45.4% |
+| India | name | top-1 (singletons) | 410 | 0.739 | 0.850 | 0.944 | 1.000 | 1.000 | 100.0% | 96.8% | 59.5% |
+| India | name | best true (matched) | 1,180 | 0.326 | 0.902 | 0.974 | 1.000 | 1.000 | 93.1% | 89.2% | 75.3% |
+| India | name | top-1 (matched) | 1,180 | 0.883 | 1.000 | 1.000 | 1.000 | 1.000 | 100.0% | 100.0% | 93.5% |
+| India | name+addr | top-1 (singletons) | 410 | 0.523 | 0.691 | 0.788 | 0.853 | 0.906 | 97.1% | 72.4% | 7.3% |
+| India | name+addr | best true (matched) | 1,180 | 0.598 | 0.842 | 0.908 | 0.949 | 0.985 | 97.7% | 90.9% | 54.4% |
+| India | name+addr | top-1 (matched) | 1,180 | 0.699 | 0.849 | 0.908 | 0.950 | 0.985 | 99.9% | 94.9% | 55.1% |
+
+| country | text | matched S1 whose top-1 pool record is a true match |
+|---|---|---|
+| US | name | 58.5% |
+| US | name+addr | 95.1% |
+| India | name | 54.0% |
+| India | name+addr | 89.4% |
+
