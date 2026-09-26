@@ -1,0 +1,14 @@
+{
+  "validation_macro_f0_5": 0.9388720538720539,
+  "threshold": 0.94,
+  "threshold_pair_f0_5": 0.9875097580015613,
+  "training_candidate_rows": 53599,
+  "validation_candidate_rows": 10218,
+  "training_positive_rows": 1378,
+  "validation_positive_rows": 257,
+  "dev_max_s1": 500,
+  "dev_target_limit": 10000,
+  "train_source1_rows": 425,
+  "train_source2_rows": 10000,
+  "train_source3_rows": 10000
+}
