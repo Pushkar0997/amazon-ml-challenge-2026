@@ -29,11 +29,18 @@ def _sim(a, b):
     return ratio(a, b) / 100.0
 
 
+def _as_list(x) -> list:
+    # Lists round-trip through parquet as numpy arrays, whose truthiness is
+    # ambiguous for `x or []` — check for None explicitly and always return a
+    # plain list.
+    return [] if x is None else list(x)
+
+
 def _trusted_city(row) -> str:
     city = row.get("city_canon") or ""
     if not city:
         return ""
-    comps = row.get("addr_components") or []
+    comps = _as_list(row.get("addr_components"))
     if len(comps) < 2:
         return city
     variant = comps[-2]
@@ -64,15 +71,15 @@ def build_features(s1, targets, candidates):
         if a["script"] != "latin" or b["script"] != "latin":
             best_name_ratio = max(best_name_ratio, _sim(a["name_translit"], b["name_translit"]))
 
-        addr_components_a = set(a.get("addr_components") or [])
-        addr_components_b = set(b.get("addr_components") or [])
+        addr_components_a = set(_as_list(a.get("addr_components")))
+        addr_components_b = set(_as_list(b.get("addr_components")))
         if addr_components_a or addr_components_b:
             addr_component_jaccard = len(addr_components_a & addr_components_b) / len(addr_components_a | addr_components_b)
         else:
             addr_component_jaccard = 0.0
 
-        addr_numbers_a = set(a.get("addr_numbers") or [])
-        addr_numbers_b = set(b.get("addr_numbers") or [])
+        addr_numbers_a = set(_as_list(a.get("addr_numbers")))
+        addr_numbers_b = set(_as_list(b.get("addr_numbers")))
         addr_number_overlap = len(addr_numbers_a & addr_numbers_b)
 
         state1, state2 = a.get("state_canon") or "", b.get("state_canon") or ""
