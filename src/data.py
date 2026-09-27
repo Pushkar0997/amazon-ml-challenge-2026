@@ -375,48 +375,51 @@ def load_split(
 def add_normalized_columns(
     df: pd.DataFrame,
 ):
+    """Attach src.preprocess.normalize()'s columns (name_core, name_sorted,
+    name_compact, name_translit, legal_form, is_domain, addr_norm,
+    addr_components, addr_numbers, state_canon, city_canon, script) to df.
+    Replaces the old src.utils ASCII-only normalizer, which silently dropped
+    non-Latin names entirely (the root cause of the India name-Jaccard=0
+    problem — see AGENT_LOG.md)."""
+    from .preprocess import normalize
 
-    from .utils import (
-        normalize_name,
-        normalize_address,
-        extract_postal,
-        extract_street_number,
-        extract_city,
-    )
-
-    output = df.copy()
-
-    output["name_norm"] = (
-        output["business_name"]
-        .map(normalize_name)
-    )
-
-    output["address_norm"] = (
-        output["business_address"]
-        .map(normalize_address)
-    )
-
-    output["postal"] = (
-        output["address_norm"]
-        .map(extract_postal)
-    )
-
-    output["street_number"] = (
-        output["address_norm"]
-        .map(extract_street_number)
-    )
-
-    output["city"] = (
-        output["address_norm"]
-        .map(extract_city)
-    )
-
-    output["country_norm"] = (
-        output["country"]
-        .map(
-            lambda x:
-            str(x).strip().lower()
+    records = [
+        normalize(name, address, country)
+        for name, address, country in zip(
+            df["business_name"], df["business_address"], df["country"]
         )
-    )
+    ]
+    norm_df = pd.DataFrame.from_records(records, index=df.index).drop(columns=["country"])
+
+    output = pd.concat([df, norm_df], axis=1)
+    output["country_norm"] = output["country"].map(lambda x: str(x).strip().lower())
 
     return output
+
+
+def sample_dataframe(
+    df: pd.DataFrame,
+    max_rows: int,
+    required_ids: set[str] | None = None,
+    seed: int = 42,
+) -> pd.DataFrame:
+    """Cap an already-loaded DataFrame to max_rows, keeping every row whose
+    entity_id is in required_ids (e.g. a ground-truth match target) even if
+    that pushes the count slightly over max_rows, then filling the rest with
+    a random sample. Used for --preprocessed-dir dev runs, where the parquet
+    is already fully loaded and load_split's streaming/sampling doesn't apply."""
+    if len(df) <= max_rows:
+        return df.reset_index(drop=True)
+
+    required_ids = required_ids or set()
+    required_df = df[df["entity_id"].isin(required_ids)]
+    remaining = df[~df["entity_id"].isin(required_ids)]
+
+    take = max(0, max_rows - len(required_df))
+    random_df = remaining.sample(n=min(take, len(remaining)), random_state=seed) if take else remaining.iloc[0:0]
+
+    return (
+        pd.concat([required_df, random_df], ignore_index=True)
+        .drop_duplicates("entity_id")
+        .reset_index(drop=True)
+    )
