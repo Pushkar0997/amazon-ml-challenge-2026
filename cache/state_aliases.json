@@ -1,0 +1,484 @@
+{
+ "France": {},
+ "India": {
+  "a": {
+   "canonical": "delhi",
+   "count": 6
+  },
+  "a p": {
+   "canonical": "andhra pradesh",
+   "count": 4
+  },
+  "ad": {
+   "canonical": "karnataka",
+   "count": 4
+  },
+  "ap": {
+   "canonical": "andhra pradesh",
+   "count": 2634
+  },
+  "ar": {
+   "canonical": "karnataka",
+   "count": 3
+  },
+  "ara": {
+   "canonical": "bihar",
+   "count": 4
+  },
+  "ase": {
+   "canonical": "karnataka",
+   "count": 3
+  },
+  "ast": {
+   "canonical": "maharashtra",
+   "count": 8
+  },
+  "bid": {
+   "canonical": "maharashtra",
+   "count": 12
+  },
+  "bkh": {
+   "canonical": "punjab",
+   "count": 3
+  },
+  "br": {
+   "canonical": "bihar",
+   "count": 3528
+  },
+  "bu": {
+   "canonical": "bihar",
+   "count": 3
+  },
+  "c o": {
+   "canonical": "uttar pradesh",
+   "count": 4
+  },
+  "d": {
+   "canonical": "gujarat",
+   "count": 4
+  },
+  "dl": {
+   "canonical": "delhi",
+   "count": 19126
+  },
+  "e": {
+   "canonical": "maharashtra",
+   "count": 10
+  },
+  "ed": {
+   "canonical": "maharashtra",
+   "count": 3
+  },
+  "est": {
+   "canonical": "maharashtra",
+   "count": 6
+  },
+  "et": {
+   "canonical": "tamil nadu",
+   "count": 5
+  },
+  "gj": {
+   "canonical": "gujarat",
+   "count": 8938
+  },
+  "har": {
+   "canonical": "maharashtra",
+   "count": 3
+  },
+  "hr": {
+   "canonical": "haryana",
+   "count": 5513
+  },
+  "hyd": {
+   "canonical": "telangana",
+   "count": 31
+  },
+  "i": {
+   "canonical": "delhi",
+   "count": 3
+  },
+  "ich": {
+   "canonical": "maharashtra",
+   "count": 3
+  },
+  "ida": {
+   "canonical": "telangana",
+   "count": 3
+  },
+  "ion": {
+   "canonical": "telangana",
+   "count": 3
+  },
+  "j": {
+   "canonical": "gujarat",
+   "count": 3
+  },
+  "k": {
+   "canonical": "maharashtra",
+   "count": 3
+  },
+  "ka": {
+   "canonical": "karnataka",
+   "count": 10563
+  },
+  "kl": {
+   "canonical": "kerala",
+   "count": 4359
+  },
+  "kol": {
+   "canonical": "west bengal",
+   "count": 7
+  },
+  "l": {
+   "canonical": "gujarat",
+   "count": 3
+  },
+  "lli": {
+   "canonical": "karnataka",
+   "count": 3
+  },
+  "lo": {
+   "canonical": "maharashtra",
+   "count": 3
+  },
+  "mau": {
+   "canonical": "uttar pradesh",
+   "count": 5
+  },
+  "mh": {
+   "canonical": "maharashtra",
+   "count": 29416
+  },
+  "mp": {
+   "canonical": "madhya pradesh",
+   "count": 3446
+  },
+  "nit": {
+   "canonical": "haryana",
+   "count": 3
+  },
+  "nj": {
+   "canonical": "uttar pradesh",
+   "count": 3
+  },
+  "o": {
+   "canonical": "maharashtra",
+   "count": 4
+  },
+  "od": {
+   "canonical": "orissa",
+   "count": 1759
+  },
+  "on": {
+   "canonical": "delhi",
+   "count": 4
+  },
+  "ore": {
+   "canonical": "west bengal",
+   "count": 3
+  },
+  "pb": {
+   "canonical": "punjab",
+   "count": 1918
+  },
+  "pur": {
+   "canonical": "delhi",
+   "count": 3
+  },
+  "r": {
+   "canonical": "delhi",
+   "count": 5
+  },
+  "rj": {
+   "canonical": "rajasthan",
+   "count": 4978
+  },
+  "t": {
+   "canonical": "maharashtra",
+   "count": 9
+  },
+  "tg": {
+   "canonical": "telangana",
+   "count": 6868
+  },
+  "tn": {
+   "canonical": "tamil nadu",
+   "count": 9845
+  },
+  "top": {
+   "canonical": "rajasthan",
+   "count": 3
+  },
+  "u p": {
+   "canonical": "uttar pradesh",
+   "count": 5
+  },
+  "up": {
+   "canonical": "uttar pradesh",
+   "count": 11304
+  },
+  "uri": {
+   "canonical": "delhi",
+   "count": 3
+  },
+  "w": {
+   "canonical": "maharashtra",
+   "count": 5
+  },
+  "wai": {
+   "canonical": "maharashtra",
+   "count": 4
+  },
+  "wb": {
+   "canonical": "west bengal",
+   "count": 8907
+  },
+  "उत्तर प्रदेश": {
+   "canonical": "uttar pradesh",
+   "count": 7686
+  },
+  "दिल्ली": {
+   "canonical": "delhi",
+   "count": 12912
+  },
+  "बिहार": {
+   "canonical": "bihar",
+   "count": 2435
+  },
+  "मध्य प्रदेश": {
+   "canonical": "madhya pradesh",
+   "count": 2339
+  },
+  "महाराष्ट्र": {
+   "canonical": "maharashtra",
+   "count": 20218
+  },
+  "राजस्थान": {
+   "canonical": "rajasthan",
+   "count": 3367
+  },
+  "हरियाणा": {
+   "canonical": "haryana",
+   "count": 3832
+  },
+  "পশ্চিমবঙ্গ": {
+   "canonical": "west bengal",
+   "count": 6029
+  },
+  "ਪੰਜਾਬ": {
+   "canonical": "punjab",
+   "count": 1327
+  },
+  "ગુજરાત": {
+   "canonical": "gujarat",
+   "count": 6082
+  },
+  "ଓଡ଼ିଶା": {
+   "canonical": "orissa",
+   "count": 1191
+  },
+  "தமிழ்நாடு": {
+   "canonical": "tamil nadu",
+   "count": 6717
+  },
+  "ఆంధ్రప్రదేశ్": {
+   "canonical": "andhra pradesh",
+   "count": 1757
+  },
+  "తెలంగాణ": {
+   "canonical": "telangana",
+   "count": 4669
+  },
+  "ಕರ್ನಾಟಕ": {
+   "canonical": "karnataka",
+   "count": 7217
+  },
+  "കേരളം": {
+   "canonical": "kerala",
+   "count": 2939
+  }
+ },
+ "US": {
+  "ak": {
+   "canonical": "alaska",
+   "count": 534
+  },
+  "al": {
+   "canonical": "alabama",
+   "count": 4743
+  },
+  "ar": {
+   "canonical": "arkansas",
+   "count": 3875
+  },
+  "az": {
+   "canonical": "arizona",
+   "count": 7934
+  },
+  "ca": {
+   "canonical": "california",
+   "count": 5310
+  },
+  "co": {
+   "canonical": "colorado",
+   "count": 617
+  },
+  "dc": {
+   "canonical": "district of columbia",
+   "count": 943
+  },
+  "de": {
+   "canonical": "delaware",
+   "count": 1339
+  },
+  "fl": {
+   "canonical": "florida",
+   "count": 87
+  },
+  "ga": {
+   "canonical": "georgia",
+   "count": 419
+  },
+  "ia": {
+   "canonical": "iowa",
+   "count": 3224
+  },
+  "id": {
+   "canonical": "idaho",
+   "count": 154
+  },
+  "il": {
+   "canonical": "illinois",
+   "count": 10628
+  },
+  "in": {
+   "canonical": "indiana",
+   "count": 7137
+  },
+  "ks": {
+   "canonical": "kansas",
+   "count": 2237
+  },
+  "ky": {
+   "canonical": "kentucky",
+   "count": 4171
+  },
+  "la": {
+   "canonical": "louisiana",
+   "count": 578
+  },
+  "lee": {
+   "canonical": "massachusetts",
+   "count": 3
+  },
+  "ma": {
+   "canonical": "massachusetts",
+   "count": 7896
+  },
+  "md": {
+   "canonical": "maryland",
+   "count": 5691
+  },
+  "me": {
+   "canonical": "maine",
+   "count": 1682
+  },
+  "mn": {
+   "canonical": "minnesota",
+   "count": 4495
+  },
+  "mo": {
+   "canonical": "missouri",
+   "count": 3682
+  },
+  "mt": {
+   "canonical": "montana",
+   "count": 1428
+  },
+  "nc": {
+   "canonical": "north carolina",
+   "count": 13992
+  },
+  "nd": {
+   "canonical": "north dakota",
+   "count": 965
+  },
+  "ne": {
+   "canonical": "nebraska",
+   "count": 808
+  },
+  "nm": {
+   "canonical": "new mexico",
+   "count": 1704
+  },
+  "ny": {
+   "canonical": "new york",
+   "count": 14820
+  },
+  "oh": {
+   "canonical": "ohio",
+   "count": 12009
+  },
+  "ok": {
+   "canonical": "oklahoma",
+   "count": 3162
+  },
+  "or": {
+   "canonical": "oregon",
+   "count": 4334
+  },
+  "pa": {
+   "canonical": "pennsylvania",
+   "count": 1766
+  },
+  "ri": {
+   "canonical": "rhode island",
+   "count": 114
+  },
+  "sc": {
+   "canonical": "south carolina",
+   "count": 440
+  },
+  "sd": {
+   "canonical": "south dakota",
+   "count": 199
+  },
+  "tn": {
+   "canonical": "tennessee",
+   "count": 8576
+  },
+  "tx": {
+   "canonical": "texas",
+   "count": 18883
+  },
+  "ut": {
+   "canonical": "utah",
+   "count": 3149
+  },
+  "va": {
+   "canonical": "virginia",
+   "count": 8646
+  },
+  "vt": {
+   "canonical": "vermont",
+   "count": 714
+  },
+  "wa": {
+   "canonical": "washington",
+   "count": 5919
+  },
+  "wi": {
+   "canonical": "wisconsin",
+   "count": 4457
+  },
+  "wv": {
+   "canonical": "west virginia",
+   "count": 2300
+  },
+  "wy": {
+   "canonical": "wyoming",
+   "count": 414
+  }
+ },
+ "_generic": {}
+}

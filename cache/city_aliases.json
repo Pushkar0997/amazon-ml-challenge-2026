@@ -1,0 +1,1032 @@
+{
+ "France": {},
+ "India": {
+  "a": {
+   "canonical": "ahmedabad",
+   "count": 5
+  },
+  "a p": {
+   "canonical": "hyderabad",
+   "count": 16
+  },
+  "ad": {
+   "canonical": "dharwad",
+   "count": 3
+  },
+  "agr": {
+   "canonical": "agra",
+   "count": 3
+  },
+  "ai": {
+   "canonical": "chennai",
+   "count": 3
+  },
+  "al": {
+   "canonical": "hyderabad",
+   "count": 3
+  },
+  "ala": {
+   "canonical": "bangalore",
+   "count": 3
+  },
+  "am": {
+   "canonical": "chennai",
+   "count": 3
+  },
+  "ap": {
+   "canonical": "krishna",
+   "count": 29
+  },
+  "ar": {
+   "canonical": "new delhi",
+   "count": 6
+  },
+  "ara": {
+   "canonical": "bhojpur",
+   "count": 17
+  },
+  "ast": {
+   "canonical": "mumbai city",
+   "count": 10
+  },
+  "aur": {
+   "canonical": "nawanshahr",
+   "count": 3
+  },
+  "ay": {
+   "canonical": "chennai",
+   "count": 4
+  },
+  "b": {
+   "canonical": "kolkata",
+   "count": 5
+  },
+  "bah": {
+   "canonical": "agra",
+   "count": 6
+  },
+  "bap": {
+   "canonical": "jodhpur",
+   "count": 3
+  },
+  "bid": {
+   "canonical": "beed",
+   "count": 107
+  },
+  "bk": {
+   "canonical": "pune",
+   "count": 3
+  },
+  "bkh": {
+   "canonical": "akalian muhala",
+   "count": 4
+  },
+  "br": {
+   "canonical": "patna",
+   "count": 97
+  },
+  "c": {
+   "canonical": "piparda distt rajsamand",
+   "count": 3
+  },
+  "c o": {
+   "canonical": "nagpur",
+   "count": 4
+  },
+  "cbd": {
+   "canonical": "navi mumbai",
+   "count": 4
+  },
+  "cda": {
+   "canonical": "cuttack",
+   "count": 5
+  },
+  "csa": {
+   "canonical": "kanpur nagar",
+   "count": 4
+  },
+  "cts": {
+   "canonical": "goregaon west",
+   "count": 3
+  },
+  "d": {
+   "canonical": "ahmedabad",
+   "count": 9
+  },
+  "d e": {
+   "canonical": "mumbai",
+   "count": 3
+  },
+  "d w": {
+   "canonical": "mumbai",
+   "count": 3
+  },
+  "dev": {
+   "canonical": "ahmedabad",
+   "count": 3
+  },
+  "dha": {
+   "canonical": "pune",
+   "count": 4
+  },
+  "dir": {
+   "canonical": "mumbai city",
+   "count": 4
+  },
+  "dl": {
+   "canonical": "new delhi",
+   "count": 240
+  },
+  "dmc": {
+   "canonical": "east delhi",
+   "count": 8
+  },
+  "e": {
+   "canonical": "mumbai",
+   "count": 17
+  },
+  "el": {
+   "canonical": "mumbai",
+   "count": 3
+  },
+  "er": {
+   "canonical": "pune",
+   "count": 3
+  },
+  "eri": {
+   "canonical": "mumbai",
+   "count": 3
+  },
+  "est": {
+   "canonical": "mumbai city",
+   "count": 7
+  },
+  "et": {
+   "canonical": "chennai",
+   "count": 7
+  },
+  "ety": {
+   "canonical": "pune",
+   "count": 4
+  },
+  "ev": {
+   "canonical": "ahmedabad",
+   "count": 3
+  },
+  "f f": {
+   "canonical": "delhi",
+   "count": 4
+  },
+  "f p": {
+   "canonical": "south delhi",
+   "count": 6
+  },
+  "fp": {
+   "canonical": "panipat",
+   "count": 7
+  },
+  "g": {
+   "canonical": "varanasi",
+   "count": 4
+  },
+  "g f": {
+   "canonical": "shahdara",
+   "count": 4
+  },
+  "g i": {
+   "canonical": "ankleshwar",
+   "count": 3
+  },
+  "gbn": {
+   "canonical": "gautam buddha nagar",
+   "count": 3
+  },
+  "ge": {
+   "canonical": "bangalore",
+   "count": 5
+  },
+  "gj": {
+   "canonical": "ahmedabad",
+   "count": 181
+  },
+  "gpo": {
+   "canonical": "patna",
+   "count": 3
+  },
+  "hlk": {
+   "canonical": "chitradurga",
+   "count": 3
+  },
+  "hr": {
+   "canonical": "gurgaon",
+   "count": 142
+  },
+  "hyd": {
+   "canonical": "hyderabad",
+   "count": 97
+  },
+  "i": {
+   "canonical": "bangalore",
+   "count": 7
+  },
+  "i w": {
+   "canonical": "mumbai",
+   "count": 7
+  },
+  "ia": {
+   "canonical": "mazhavarayanallur village sethiyathope v",
+   "count": 3
+  },
+  "ind": {
+   "canonical": "hissar",
+   "count": 4
+  },
+  "int": {
+   "canonical": "mumbai",
+   "count": 4
+  },
+  "io": {
+   "canonical": "mumbai",
+   "count": 3
+  },
+  "ion": {
+   "canonical": "navi mumbai",
+   "count": 3
+  },
+  "ipu": {
+   "canonical": "chennai",
+   "count": 3
+  },
+  "ive": {
+   "canonical": "cochin",
+   "count": 3
+  },
+  "j": {
+   "canonical": "gujarat",
+   "count": 4
+  },
+  "j r": {
+   "canonical": "panipat",
+   "count": 4
+  },
+  "jac": {
+   "canonical": "mumbai city",
+   "count": 3
+  },
+  "jat": {
+   "canonical": "sangli",
+   "count": 6
+  },
+  "jay": {
+   "canonical": "bangalore",
+   "count": 3
+  },
+  "k": {
+   "canonical": "rajkot",
+   "count": 3
+  },
+  "ka": {
+   "canonical": "bangalore",
+   "count": 473
+  },
+  "kam": {
+   "canonical": "kancheepuram",
+   "count": 3
+  },
+  "kgf": {
+   "canonical": "kolar",
+   "count": 3
+  },
+  "kim": {
+   "canonical": "surat",
+   "count": 19
+  },
+  "kl": {
+   "canonical": "ernakulam",
+   "count": 76
+  },
+  "kol": {
+   "canonical": "calcutta",
+   "count": 28
+  },
+  "kon": {
+   "canonical": "thane",
+   "count": 3
+  },
+  "ky": {
+   "canonical": "ahmedabad",
+   "count": 3
+  },
+  "lli": {
+   "canonical": "bangalore",
+   "count": 9
+  },
+  "lls": {
+   "canonical": "hyderabad",
+   "count": 5
+  },
+  "lo": {
+   "canonical": "new delhi",
+   "count": 3
+  },
+  "lp": {
+   "canonical": "howrah",
+   "count": 3
+  },
+  "ls": {
+   "canonical": "hyderabad",
+   "count": 5
+  },
+  "ly": {
+   "canonical": "hyderabad",
+   "count": 4
+  },
+  "m": {
+   "canonical": "chennai",
+   "count": 3
+  },
+  "m p": {
+   "canonical": "ujjain",
+   "count": 5
+  },
+  "ma": {
+   "canonical": "hyderabad",
+   "count": 3
+  },
+  "mal": {
+   "canonical": "jalpaiguri",
+   "count": 4
+  },
+  "mau": {
+   "canonical": "maunathbhanjan",
+   "count": 33
+  },
+  "mh": {
+   "canonical": "pune",
+   "count": 377
+  },
+  "mig": {
+   "canonical": "hyderabad",
+   "count": 3
+  },
+  "mp": {
+   "canonical": "indore",
+   "count": 78
+  },
+  "mrg": {
+   "canonical": "raebareli",
+   "count": 4
+  },
+  "n": {
+   "canonical": "mumbai",
+   "count": 3
+  },
+  "nd": {
+   "canonical": "central delhi",
+   "count": 3
+  },
+  "nda": {
+   "canonical": "gonda",
+   "count": 5
+  },
+  "ner": {
+   "canonical": "jalna",
+   "count": 4
+  },
+  "new": {
+   "canonical": "central",
+   "count": 3
+  },
+  "nit": {
+   "canonical": "faridabad",
+   "count": 4
+  },
+  "njf": {
+   "canonical": "south delhi",
+   "count": 5
+  },
+  "ntr": {
+   "canonical": "krishna",
+   "count": 8
+  },
+  "nuh": {
+   "canonical": "gurgaon",
+   "count": 10
+  },
+  "oad": {
+   "canonical": "thane",
+   "count": 5
+  },
+  "od": {
+   "canonical": "khordha",
+   "count": 36
+  },
+  "omr": {
+   "canonical": "kanchipuram",
+   "count": 3
+  },
+  "oor": {
+   "canonical": "mangalore",
+   "count": 3
+  },
+  "ost": {
+   "canonical": "bangalore",
+   "count": 3
+  },
+  "p o": {
+   "canonical": "kollengode",
+   "count": 4
+  },
+  "pal": {
+   "canonical": "rajkot",
+   "count": 5
+  },
+  "pb": {
+   "canonical": "ludhiana",
+   "count": 41
+  },
+  "pen": {
+   "canonical": "raigarh mh",
+   "count": 4
+  },
+  "pne": {
+   "canonical": "pune",
+   "count": 7
+  },
+  "po": {
+   "canonical": "chennai",
+   "count": 4
+  },
+  "pue": {
+   "canonical": "pune",
+   "count": 7
+  },
+  "r": {
+   "canonical": "nagpur",
+   "count": 4
+  },
+  "ra": {
+   "canonical": "ahmedabad",
+   "count": 8
+  },
+  "rai": {
+   "canonical": "sonipat",
+   "count": 6
+  },
+  "ram": {
+   "canonical": "chennai",
+   "count": 4
+  },
+  "rau": {
+   "canonical": "indore",
+   "count": 9
+  },
+  "rj": {
+   "canonical": "jaipur",
+   "count": 141
+  },
+  "ron": {
+   "canonical": "dharwar",
+   "count": 3
+  },
+  "rud": {
+   "canonical": "koth",
+   "count": 4
+  },
+  "s": {
+   "canonical": "hyderabad",
+   "count": 5
+  },
+  "s f": {
+   "canonical": "south delhi",
+   "count": 7
+  },
+  "shi": {
+   "canonical": "pune",
+   "count": 4
+  },
+  "si": {
+   "canonical": "surat",
+   "count": 3
+  },
+  "sur": {
+   "canonical": "faridabad",
+   "count": 3
+  },
+  "sy": {
+   "canonical": "surat",
+   "count": 5
+  },
+  "t": {
+   "canonical": "mumbai",
+   "count": 17
+  },
+  "ta": {
+   "canonical": "hyderabad",
+   "count": 3
+  },
+  "teh": {
+   "canonical": "tendukheda",
+   "count": 3
+  },
+  "tg": {
+   "canonical": "hyderabad",
+   "count": 236
+  },
+  "tha": {
+   "canonical": "ahmedabad",
+   "count": 3
+  },
+  "tn": {
+   "canonical": "chennai",
+   "count": 276
+  },
+  "u p": {
+   "canonical": "gautam buddha nagar",
+   "count": 12
+  },
+  "uda": {
+   "canonical": "hyderabad",
+   "count": 4
+  },
+  "udi": {
+   "canonical": "shimoga",
+   "count": 3
+  },
+  "ue": {
+   "canonical": "pune",
+   "count": 5
+  },
+  "un": {
+   "canonical": "pune",
+   "count": 6
+  },
+  "una": {
+   "canonical": "junagadh",
+   "count": 3
+  },
+  "unj": {
+   "canonical": "vadodara",
+   "count": 3
+  },
+  "up": {
+   "canonical": "lucknow",
+   "count": 124
+  },
+  "ur": {
+   "canonical": "thrissur",
+   "count": 4
+  },
+  "ura": {
+   "canonical": "ahmedabad",
+   "count": 4
+  },
+  "v": {
+   "canonical": "surat",
+   "count": 5
+  },
+  "va": {
+   "canonical": "thane",
+   "count": 4
+  },
+  "vas": {
+   "canonical": "ahmedabad",
+   "count": 5
+  },
+  "ve": {
+   "canonical": "gandhidham",
+   "count": 4
+  },
+  "vid": {
+   "canonical": "jaipur",
+   "count": 3
+  },
+  "vlr": {
+   "canonical": "vellore",
+   "count": 3
+  },
+  "w": {
+   "canonical": "mumbai",
+   "count": 19
+  },
+  "w b": {
+   "canonical": "midnapur",
+   "count": 4
+  },
+  "wai": {
+   "canonical": "satara",
+   "count": 17
+  },
+  "wb": {
+   "canonical": "howrah",
+   "count": 242
+  },
+  "y": {
+   "canonical": "south delhi",
+   "count": 4
+  },
+  "उत्तर प्रदेश": {
+   "canonical": "lucknow",
+   "count": 58
+  },
+  "दिल्ली": {
+   "canonical": "south delhi",
+   "count": 103
+  },
+  "बिहार": {
+   "canonical": "patna",
+   "count": 46
+  },
+  "मध्य प्रदेश": {
+   "canonical": "indore",
+   "count": 32
+  },
+  "महाराष्ट्र": {
+   "canonical": "mumbai",
+   "count": 188
+  },
+  "राजस्थान": {
+   "canonical": "jaipur",
+   "count": 62
+  },
+  "हरियाणा": {
+   "canonical": "gurgaon",
+   "count": 80
+  },
+  "পশ্চিমবঙ্গ": {
+   "canonical": "howrah",
+   "count": 111
+  },
+  "ਪੰਜਾਬ": {
+   "canonical": "ludhiana",
+   "count": 13
+  },
+  "ગુજરાત": {
+   "canonical": "ahmedabad",
+   "count": 100
+  },
+  "ଓଡ଼ିଶା": {
+   "canonical": "khordha",
+   "count": 19
+  },
+  "தமிழ்நாடு": {
+   "canonical": "chennai",
+   "count": 110
+  },
+  "ఆంధ్రప్రదేశ్": {
+   "canonical": "vishakhapatnam",
+   "count": 16
+  },
+  "తెలంగాణ": {
+   "canonical": "hyderabad",
+   "count": 127
+  },
+  "ಕರ್ನಾಟಕ": {
+   "canonical": "bangalore",
+   "count": 191
+  },
+  "കേരളം": {
+   "canonical": "ernakulam",
+   "count": 28
+  }
+ },
+ "US": {
+  "a": {
+   "canonical": "unit a",
+   "count": 3
+  },
+  "adk": {
+   "canonical": "atlanta",
+   "count": 28
+  },
+  "aes": {
+   "canonical": "ames",
+   "count": 10
+  },
+  "ak": {
+   "canonical": "anchorage",
+   "count": 69
+  },
+  "al": {
+   "canonical": "mobile",
+   "count": 67
+  },
+  "ams": {
+   "canonical": "ames",
+   "count": 3
+  },
+  "ana": {
+   "canonical": "anna",
+   "count": 3
+  },
+  "ar": {
+   "canonical": "little rock",
+   "count": 78
+  },
+  "atl": {
+   "canonical": "atlanta",
+   "count": 244
+  },
+  "az": {
+   "canonical": "phoenix",
+   "count": 255
+  },
+  "bnd": {
+   "canonical": "bend",
+   "count": 4
+  },
+  "ca": {
+   "canonical": "sacramento",
+   "count": 183
+  },
+  "co": {
+   "canonical": "highlands ranch",
+   "count": 19
+  },
+  "cry": {
+   "canonical": "cary",
+   "count": 14
+  },
+  "dae": {
+   "canonical": "dale",
+   "count": 3
+  },
+  "dc": {
+   "canonical": "washington",
+   "count": 197
+  },
+  "de": {
+   "canonical": "wilmington",
+   "count": 64
+  },
+  "dnn": {
+   "canonical": "dunn",
+   "count": 3
+  },
+  "ely": {
+   "canonical": "eloy",
+   "count": 6
+  },
+  "emo": {
+   "canonical": "elmo",
+   "count": 3
+  },
+  "enn": {
+   "canonical": "enon",
+   "count": 3
+  },
+  "eon": {
+   "canonical": "elon",
+   "count": 5
+  },
+  "eoy": {
+   "canonical": "eloy",
+   "count": 5
+  },
+  "fl": {
+   "canonical": "marianna",
+   "count": 21
+  },
+  "ga": {
+   "canonical": "atlanta",
+   "count": 79
+  },
+  "gry": {
+   "canonical": "gary",
+   "count": 5
+  },
+  "ia": {
+   "canonical": "des moines",
+   "count": 49
+  },
+  "id": {
+   "canonical": "ketchum",
+   "count": 4
+  },
+  "il": {
+   "canonical": "chicago",
+   "count": 331
+  },
+  "in": {
+   "canonical": "indianapolis",
+   "count": 254
+  },
+  "jay": {
+   "canonical": "jay cdp",
+   "count": 9
+  },
+  "ks": {
+   "canonical": "wichita",
+   "count": 86
+  },
+  "kty": {
+   "canonical": "katy",
+   "count": 14
+  },
+  "ky": {
+   "canonical": "louisville",
+   "count": 201
+  },
+  "la": {
+   "canonical": "baton rouge city",
+   "count": 28
+  },
+  "lee": {
+   "canonical": "taberg",
+   "count": 3
+  },
+  "lei": {
+   "canonical": "lehi",
+   "count": 5
+  },
+  "lnn": {
+   "canonical": "lynn",
+   "count": 6
+  },
+  "lyn": {
+   "canonical": "lynn",
+   "count": 3
+  },
+  "ma": {
+   "canonical": "boston",
+   "count": 122
+  },
+  "md": {
+   "canonical": "baltimore",
+   "count": 178
+  },
+  "me": {
+   "canonical": "wells",
+   "count": 14
+  },
+  "mea": {
+   "canonical": "mesa",
+   "count": 29
+  },
+  "mn": {
+   "canonical": "saint paul",
+   "count": 52
+  },
+  "mo": {
+   "canonical": "saint louis",
+   "count": 126
+  },
+  "moo": {
+   "canonical": "moro",
+   "count": 3
+  },
+  "msa": {
+   "canonical": "mesa",
+   "count": 17
+  },
+  "mt": {
+   "canonical": "billings",
+   "count": 38
+  },
+  "nc": {
+   "canonical": "charlotte",
+   "count": 260
+  },
+  "nd": {
+   "canonical": "fargo",
+   "count": 29
+  },
+  "ne": {
+   "canonical": "omaha",
+   "count": 86
+  },
+  "nm": {
+   "canonical": "albuquerque",
+   "count": 105
+  },
+  "ny": {
+   "canonical": "brooklyn",
+   "count": 145
+  },
+  "oh": {
+   "canonical": "columbus",
+   "count": 235
+  },
+  "oji": {
+   "canonical": "ojai",
+   "count": 3
+  },
+  "ok": {
+   "canonical": "tulsa",
+   "count": 103
+  },
+  "or": {
+   "canonical": "portland",
+   "count": 110
+  },
+  "pa": {
+   "canonical": "abington township",
+   "count": 12
+  },
+  "pg": {
+   "canonical": "marion tonship",
+   "count": 3
+  },
+  "pna": {
+   "canonical": "pana",
+   "count": 3
+  },
+  "pne": {
+   "canonical": "pine",
+   "count": 4
+  },
+  "ri": {
+   "canonical": "pascoag",
+   "count": 4
+  },
+  "roa": {
+   "canonical": "roma",
+   "count": 3
+  },
+  "roe": {
+   "canonical": "rome",
+   "count": 3
+  },
+  "rok": {
+   "canonical": "rock",
+   "count": 3
+  },
+  "roy": {
+   "canonical": "roy city",
+   "count": 22
+  },
+  "rye": {
+   "canonical": "ry city",
+   "count": 4
+  },
+  "sao": {
+   "canonical": "saco",
+   "count": 3
+  },
+  "sc": {
+   "canonical": "rock hill",
+   "count": 32
+  },
+  "sd": {
+   "canonical": "sioux falls",
+   "count": 40
+  },
+  "sow": {
+   "canonical": "stow",
+   "count": 6
+  },
+  "tn": {
+   "canonical": "nashville",
+   "count": 192
+  },
+  "toy": {
+   "canonical": "troy",
+   "count": 5
+  },
+  "tx": {
+   "canonical": "houston",
+   "count": 484
+  },
+  "ut": {
+   "canonical": "salt lake city",
+   "count": 62
+  },
+  "va": {
+   "canonical": "fairfax county",
+   "count": 144
+  },
+  "van": {
+   "canonical": "van city",
+   "count": 3
+  },
+  "vt": {
+   "canonical": "rutland city",
+   "count": 9
+  },
+  "wa": {
+   "canonical": "seattle",
+   "count": 77
+  },
+  "wer": {
+   "canonical": "weir",
+   "count": 4
+  },
+  "wi": {
+   "canonical": "wisconsin",
+   "count": 27
+  },
+  "wv": {
+   "canonical": "morgantown",
+   "count": 33
+  },
+  "wy": {
+   "canonical": "cheyenne",
+   "count": 16
+  },
+  "yma": {
+   "canonical": "yuma",
+   "count": 7
+  }
+ },
+ "_generic": {}
+}

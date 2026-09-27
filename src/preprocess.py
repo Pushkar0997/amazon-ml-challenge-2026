@@ -433,10 +433,23 @@ def _iter_tsv(path: Path):
             yield dict(zip(header, line.rstrip("\n").split("\t")))
 
 
+def _is_alpha_component(s: str) -> bool:
+    """Sanity guard against noisy address components (house numbers, phone-like
+    digit runs, landmark fragments) leaking into the alias maps: a real
+    state/city name is letters (plus combining marks, e.g. Indic matras/virama
+    which are Unicode category Mn/Mc, not "alphabetic") and spaces only."""
+    stripped = s.replace(" ", "")
+    return bool(stripped) and all(
+        ch.isalpha() or unicodedata.category(ch)[0] == "M" for ch in stripped
+    )
+
+
 def _looks_like_alias_pair(canonical_side: str, variant_side: str) -> bool:
     """True when the variant side looks like a script/abbreviation variant of
     the canonical (Latin, spelled-out) side rather than an unrelated string."""
     if not canonical_side or not variant_side or canonical_side == variant_side:
+        return False
+    if not _is_alpha_component(canonical_side) or not _is_alpha_component(variant_side):
         return False
     if detect_script(variant_side) != "latin":
         return True
@@ -507,12 +520,14 @@ def mine_alias_maps(max_pairs_per_country: int = 150_000, seed: int = 42) -> tup
                 elif _looks_like_alias_pair(m_city, s1_city):
                     _record(city_counts, country, s1_city, m_city)
 
-    def _finalize(counts):
+    def _finalize(counts, min_count=3):
         out = {}
         for country, variants in counts.items():
             table = {}
             for variant, canon_counts in variants.items():
                 best_canon = max(canon_counts.items(), key=lambda kv: kv[1])
+                if best_canon[1] < min_count:
+                    continue  # drop low-confidence singleton/noise observations
                 table[variant] = {"canonical": best_canon[0], "count": best_canon[1]}
             out[country] = table
         return out

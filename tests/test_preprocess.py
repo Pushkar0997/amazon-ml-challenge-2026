@@ -82,6 +82,14 @@ def test_zero_width_char_deleted_not_spaced():
     assert rec["name_norm"] == "अचल"
 
 
+def test_state_alias_map_canonicalizes_abbreviation_and_script_variants():
+    # Requires cache/state_aliases.json, mined from train (see mine_alias_maps).
+    us = normalize("Some Co", "100 Main St, Phoenix, AZ", "US")
+    india_script = normalize("Some Co", "100 MG Road, Hyderabad, తెలంగాణ", "India")
+    assert us["state_canon"] == "arizona"
+    assert india_script["state_canon"] == "telangana"
+
+
 def test_empty_address_does_not_crash():
     rec = normalize("Some Co", "", "US")
     assert rec["addr_numbers"] == []
