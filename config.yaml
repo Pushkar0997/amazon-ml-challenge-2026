@@ -1,8 +1,8 @@
 seed: 42
 
 paths:
-  train_dir: dataset/train
-  test_dir: dataset/test
+  train_dir: student_resource/dataset/train
+  test_dir: student_resource/dataset/test
   output_dir: output
   model_dir: models
   cache_dir: cache
