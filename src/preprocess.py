@@ -341,6 +341,25 @@ _CITY_SEED = {
 _alias_cache: dict[str, dict] = {}
 
 
+# city_aliases.json was mined with a min-count-3 filter (see mine_alias_maps),
+# which still lets through noisy short-key entries (2-letter fragments,
+# singleton-ish counts) that state_aliases.json's higher-frequency entries
+# don't suffer from as much. Prune those harder at load time rather than
+# re-mining: drop any city alias with count < 20 or a key under 3 characters.
+_CITY_ALIAS_MIN_COUNT = 20
+_CITY_ALIAS_MIN_KEY_LEN = 3
+
+
+def _prune_city_aliases(city_map: dict) -> dict:
+    pruned = {}
+    for country, table in city_map.items():
+        pruned[country] = {
+            k: v for k, v in table.items()
+            if len(k) >= _CITY_ALIAS_MIN_KEY_LEN and v.get("count", 0) >= _CITY_ALIAS_MIN_COUNT
+        }
+    return pruned
+
+
 def _load_alias_maps():
     if _alias_cache:
         return _alias_cache["state"], _alias_cache["city"]
@@ -348,6 +367,7 @@ def _load_alias_maps():
     city_path = CACHE_DIR / "city_aliases.json"
     state_map = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else dict(_STATE_SEED)
     city_map = json.loads(city_path.read_text(encoding="utf-8")) if city_path.exists() else dict(_CITY_SEED)
+    city_map = _prune_city_aliases(city_map)
     _alias_cache["state"] = state_map
     _alias_cache["city"] = city_map
     return state_map, city_map

@@ -119,3 +119,21 @@ the root cause of the India name-Jaccard=0 problem). Switching them over to
   `state_canon`/`city_canon`). Acceptable per spec ("generic fallback for any
   unseen country") but worth a manual seed list if France candidate quality
   turns out to need it.
+
+## 2026-09-27 (later) — pipeline wiring, deadline tonight
+
+Reminder from this point on: local machine stays capped to pytest + a
+`--sample-s1 2000` smoke run, under 3 min / 1.5GB. All full-scale work
+(training, full preprocessing, the 200k eval) is Kaggle-only.
+
+### 1. Pruned noisy city aliases at load time
+`cache/city_aliases.json` was mined with only a min-count-3 filter (see
+above), which let through a long tail of 2-3-letter fragment keys and
+single-digit counts that are more noise than signal for city names
+specifically (state aliases don't have this problem as badly — their
+frequencies are much higher). `_load_alias_maps()` now drops any city alias
+with `count < 20` or a key shorter than 3 characters at **load time**
+(`_prune_city_aliases`), rather than re-mining the cached file — the raw
+mined counts stay in `cache/city_aliases.json` for inspection, only the
+in-memory table used by `city_canon()` is filtered. State aliases are
+untouched (not asked for, and their counts are already much higher-confidence).
