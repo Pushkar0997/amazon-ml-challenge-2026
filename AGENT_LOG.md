@@ -126,14 +126,151 @@ Reminder from this point on: local machine stays capped to pytest + a
 `--sample-s1 2000` smoke run, under 3 min / 1.5GB. All full-scale work
 (training, full preprocessing, the 200k eval) is Kaggle-only.
 
-### 1. Pruned noisy city aliases at load time
-`cache/city_aliases.json` was mined with only a min-count-3 filter (see
-above), which let through a long tail of 2-3-letter fragment keys and
-single-digit counts that are more noise than signal for city names
-specifically (state aliases don't have this problem as badly — their
-frequencies are much higher). `_load_alias_maps()` now drops any city alias
-with `count < 20` or a key shorter than 3 characters at **load time**
-(`_prune_city_aliases`), rather than re-mining the cached file — the raw
-mined counts stay in `cache/city_aliases.json` for inspection, only the
-in-memory table used by `city_canon()` is filtered. State aliases are
-untouched (not asked for, and their counts are already much higher-confidence).
+### 1. Pruned noisy city aliases (superseded mid-task — moved to features.py)
+First pass: `_load_alias_maps()` dropped any city alias with `count < 20` or
+a key shorter than 3 characters at load time, so `city_canon` in the
+preprocessed parquet would already reflect the filter. **Corrected
+mid-task**: this changes preprocessing output for cities, which the follow-up
+instruction explicitly said not to do. Reverted — `city_canon` in the parquet
+is unpruned again, exactly as mined. The count/key-length filter now lives in
+`src/features.py` (`_trusted_city`, `CITY_ALIAS_MIN_COUNT=20`,
+`CITY_ALIAS_MIN_KEY_LEN=3`, see task 4 below): it looks up the raw variant
+key (`addr_components[-2]`) against `preprocess.load_alias_maps()`'s
+unpruned table at pair-scoring time, and only trusts `city_canon` for the
+`city_match` feature when the backing alias entry (if any) clears the bar.
+An identity fallback (no alias substitution — `city_canon` is just the raw
+normalised text) is still trusted, since the risk here is specifically a
+*wrong* low-confidence alias substitution, not a plain literal comparison.
+Added `preprocess.load_alias_maps()` as the public accessor features.py uses.
+
+### 2. Streamed parquet output via pyarrow.ParquetWriter
+`preprocess_file()` used to accumulate every record into a Python list, then
+call `pd.DataFrame.from_records()` + one `to_parquet()` at the end — this is
+almost certainly why the earlier full local run hung 38+ minutes on
+source2's 5M rows before being killed (see the first Kaggle-offload entry
+above). Now writes in 20k-row batches through `pyarrow.ParquetWriter`, so
+memory holds at most one batch at a time regardless of file size. Verified
+locally at `--sample-s1 2000` scale only (8s wall, correct output); full-scale
+behavior is a Kaggle-only concern per the local limits.
+
+### 3. Wired src.preprocess.normalize into add_normalized_columns
+`src/data.py:add_normalized_columns` now calls `src.preprocess.normalize`
+per row and merges its columns onto the dataframe (keeping `country_norm`
+for backward compat). Removed `src/utils.py`'s old ASCII-only
+`normalize_name`/`normalize_address`/`extract_postal`/`extract_street_number`/
+`extract_city` — that normalizer stripped all non-ASCII characters, which was
+the root cause of the India name-Jaccard=0 problem the whole preprocessing
+task exists to fix. Also added `data.sample_dataframe()`, a required-ids-aware
+row-capper for already-loaded DataFrames, used by the `--preprocessed-dir`
+path added in task 7 below.
+
+### 4. features.py rewritten on the new columns
+Replaced `name_norm`/`address_norm`/`postal`/`city`/`street_number` features
+(columns that no longer exist) with: `name_core`/`name_sorted`/`name_compact`
+rapidfuzz similarities; `name_best_ratio` = max(name_core ratio, name_translit
+ratio) when either side's script is non-Latin (so an Indic-script name still
+gets credit via its transliteration even when the in-script name_core text
+doesn't literally match); `address_component_jaccard`; `addr_number_overlap`;
+`state_match`/`city_match` (city filtered through the count/key-length check
+from task 1); `legal_form_match`. `country_match` unchanged.
+
+### 5. blocking.py: dropped postal keys, capped at 30 (config)
+Postcodes are near-absent in this data (<1% coverage, EDA_REPORT.md) so the
+old postal-code blocking key was dead weight. Replaced `_keys_for_row` with:
+`(country, addr_number, state_canon)` keys (a house number only collides
+with candidates in the same state) and `(country, name_core token)` keys
+(name_core already has legal suffixes stripped, catching reordered/typo'd
+names the old 4/6-char name-prefix key missed). `max_candidates_per_source1`
+is now actually read from `config.yaml` (previously config.yaml wasn't
+loaded by any code at all) and lowered 500 -> 30. Added
+`blocking.recall_at_cap()`, wired into `pipeline.run_train`'s printout.
+
+**Recall@cap on the smoke sample**: the `--sample-s1 2000 --preprocessed-dir`
+run (see task 7) reported recall@cap ≈ 0.001 on both train and valid splits.
+This is **not** a blocking regression — it's an artifact of how the tiny
+smoke parquet was built (`src.preprocess --sample-s1 2000` takes the first
+2,000 S1 rows and the first 10,000 S2/S3 rows *by file position*, with no
+ground-truth-aware sampling), so the true matches for those particular 2,000
+S1 entities are almost never among the first 10,000 S2/S3 rows. Confirmed
+blocking itself works correctly with a small contrived example (2 S1 records
+with known true S2/S3 matches, both scattered across the full column set):
+`recall_at_cap` = 1.0, both true pairs found. The real recall@cap number is a
+Kaggle-only deliverable (full data, no sampling artifact).
+
+### 6. postprocess.py: many-to-one assignment + candidate_pairs.tsv format fix
+`build_matching_results` now enforces the ground truth's many-to-one
+constraint (no S2/S3 record matches more than one S1, confirmed in
+EDA_REPORT.md): when several S1 candidates clear the threshold for the same
+target, only the highest-scoring one keeps it (adds `best_score`/
+`second_best_score`/`margin` columns — one groupby + `nlargest(2)` over the
+already-threshold-accepted rows, so it's cheap). Also fixed a pre-existing
+bug in `build_candidate_output`: it emitted one row per (s1, candidate) pair
+under a singular `candidate_entity_id` column, but the spec requires one row
+per S1 with a comma-joined `candidate_entity_ids` list (same shape as
+`matching_results.tsv`) — the old format would have failed
+`validate_submission.py` at full scale. Not one of the 8 listed tasks, but
+directly blocks task 8's "run the validator" exit criterion, so fixed now.
+
+### 7. Threshold tuning on macro F0.5; pipeline wiring
+`model.choose_threshold` now sweeps thresholds by actually running
+`build_matching_results` (many-to-one + guard) at each candidate value and
+scoring with `evaluate.score_macro_f05` (per-S1-entity F0.5, averaged) —
+replacing the old flat pair-level `fbeta_score` sweep, which doesn't match
+the competition metric (macro-averaged per entity; a correctly-predicted
+empty list for a singleton scores 1.0, which a pooled pair-level score can't
+represent).
+
+Also found and fixed, while getting the smoke run working:
+- `pipeline.py`'s `DATASET` pointed at `ROOT/'dataset'`, which doesn't
+  exist (should be `student_resource/dataset`) — this alone made
+  `run_pipeline.py` completely unusable, unrelated to today's 8 tasks but a
+  blocking bug for testing any of them end to end.
+- Added `--data-dir`/`--preprocessed-dir` to `run_pipeline.py`/`pipeline.py`.
+  `--preprocessed-dir` loads already-normalized parquet (e.g. from a Kaggle
+  preprocessing run, or the local smoke parquet) instead of recomputing
+  `add_normalized_columns`, using `data.sample_dataframe` for dev-mode
+  capping.
+- `features.py` crashed on parquet-loaded data: `addr_components`/
+  `addr_numbers` come back as numpy arrays, and `array or []` raises
+  "truth value of an array is ambiguous". Added `_as_list()`, which checks
+  for `None` explicitly instead of relying on truthiness.
+
+**Local smoke run** (within limits: <3 min, <1.5GB):
+`python -m pytest tests/test_preprocess.py -q` → 13 passed.
+`python run_pipeline.py --mode all --max-s1 2000 --preprocessed-dir cache/preprocessed`
+(against locally-generated `--sample-s1 2000` parquet for train+test) → **1m50s
+wall, no crash**, wrote `output/matching_results.tsv` and
+`output/candidate_pairs.tsv` in the correct format. Did not attempt the raw
+(non-preprocessed-dir) load path locally: `load_split`'s TSV sampling scans
+the full multi-million-row S2/S3 files regardless of `--max-s1` (pre-existing
+behavior, not touched today) and hung past 2 minutes with zero output on this
+machine — exactly the kind of full-file-scan cost the earlier Kaggle-offload
+decision was about. The `--preprocessed-dir` path exists precisely to avoid
+this locally; the raw path is exercised for real on Kaggle via task 8's
+notebook, which doesn't pass `--preprocessed-dir` for training.
+
+Did not commit the smoke run's tiny-sample `output/*.tsv`,
+`output/threshold.json`, `output/validation_metrics.json`, or
+`models/xgb_matcher.joblib` — those are tracked deliverable files and the
+smoke run's 2,000-row sample would have overwritten them with meaningless
+numbers. Reverted them to the last real committed state with `git checkout`.
+
+### 8. kaggle/run_pipeline.ipynb
+Clones the repo (GitHub token from Kaggle Secrets, never hard-coded),
+installs only whichever of numpy/pandas/scikit-learn/xgboost/rapidfuzz/
+joblib/pyarrow/PyYAML/indic-transliteration/psutil Kaggle's image is missing
+(checked via `importlib.import_module`, not a blind
+`pip install -r requirements.txt`, to avoid fighting Kaggle's own pinned
+stack), runs full preprocessing (alias mining + normalize train/test), trains
+via `run_pipeline.py --mode train --preprocessed-dir ...`, runs inference via
+`--mode test`, runs `student_resource/utils/validate_submission.py`, copies
+outputs to `/kaggle/working/`, and prints the held-out validation macro F0.5
+plus the chosen threshold and blocking recall@cap.
+
+### What's pending on Kaggle (updated)
+Everything in the original "pending on Kaggle" list above, plus:
+9. `kaggle/run_pipeline.ipynb`: fill in `DATASET_SLUG`/`GITHUB_REPO`, run
+   top to bottom. This is what produces the real recall@cap, the real
+   validation macro F0.5, and a validator-clean `matching_results.tsv`/
+   `candidate_pairs.tsv` at full scale — none of which are meaningful from
+   the local 2,000-row smoke sample.
