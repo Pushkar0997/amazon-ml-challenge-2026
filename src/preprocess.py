@@ -24,8 +24,13 @@ except ImportError:  # pragma: no cover - dependency is required at runtime, not
     sanscript = None
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = ROOT / "student_resource" / "dataset"
-CACHE_DIR = ROOT / "cache"
+# Overridable via env var (not just a CLI flag / function arg) because on
+# Windows, multiprocessing.Pool workers are spawned as fresh interpreters that
+# re-import this module from scratch — a plain global reassigned in the
+# parent's main() after import time would not be visible to them, but an
+# inherited environment variable is.
+DATA_DIR = Path(os.environ.get("PREPROCESS_DATA_DIR", str(ROOT / "student_resource" / "dataset")))
+CACHE_DIR = Path(os.environ.get("PREPROCESS_CACHE_DIR", str(ROOT / "cache")))
 
 # ---------------------------------------------------------------------------
 # Base character-level normalisation
@@ -458,7 +463,13 @@ def _looks_like_alias_pair(canonical_side: str, variant_side: str) -> bool:
     return False
 
 
-def mine_alias_maps(max_pairs_per_country: int = 150_000, seed: int = 42) -> tuple[dict, dict]:
+def mine_alias_maps(
+    max_pairs_per_country: int = 150_000,
+    seed: int = 42,
+    data_dir: Path | None = None,
+    cache_dir: Path | None = None,
+    sample_s1: int | None = None,
+) -> tuple[dict, dict]:
     """Mine state/city alias maps from true S1<->S2/S3 pairs in train.
 
     Uses pairs where the S1 address is Latin-script/spelled-out and the
@@ -466,8 +477,14 @@ def mine_alias_maps(max_pairs_per_country: int = 150_000, seed: int = 42) -> tup
     abbreviation, so we learn e.g. 'GJ' -> 'gujarat' or the Devanagari state
     name -> its Latin S1 form. Deterministic: the same fixed-order scan of the
     files is used every run, so results are identical across runs.
+
+    `sample_s1` caps how many Source-1 rows are read at all (for a cheap local
+    smoke run); `data_dir`/`cache_dir` override the module defaults so the
+    same code path runs against a tiny local checkout or the full Kaggle copy.
     """
-    train_dir = DATA_DIR / "train"
+    data_dir = data_dir or DATA_DIR
+    cache_dir = cache_dir or CACHE_DIR
+    train_dir = data_dir / "train"
     s1_path = train_dir / "train_source1.tsv"
     gt_path = train_dir / "train_ground_truth.tsv"
 
@@ -475,6 +492,8 @@ def mine_alias_maps(max_pairs_per_country: int = 150_000, seed: int = 42) -> tup
     for row in _iter_tsv(s1_path):
         addr = extract_addr_components(row["business_address"], row["country"])
         s1_info[row["entity_id"]] = (addr, row["country"])
+        if sample_s1 is not None and len(s1_info) >= sample_s1:
+            break
 
     needed: dict[str, str] = {}
     per_country_count: dict[str, int] = {}
@@ -541,9 +560,9 @@ def mine_alias_maps(max_pairs_per_country: int = 150_000, seed: int = 42) -> tup
             for k, v in table.items():
                 target[country].setdefault(k, {"canonical": v, "count": 0})
 
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    (CACHE_DIR / "state_aliases.json").write_text(json.dumps(state_map, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
-    (CACHE_DIR / "city_aliases.json").write_text(json.dumps(city_map, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    (cache_dir / "state_aliases.json").write_text(json.dumps(state_map, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
+    (cache_dir / "city_aliases.json").write_text(json.dumps(city_map, ensure_ascii=False, indent=1, sort_keys=True), encoding="utf-8")
     _alias_cache.clear()
     return state_map, city_map
 
@@ -614,17 +633,28 @@ def preprocess_file(src_path: Path, out_path: Path, sample_n: int | None = None,
 
 
 def main():
+    global DATA_DIR, CACHE_DIR
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--split", choices=["train", "test"], required=True)
-    parser.add_argument("--sample-s1", type=int, default=None, help="Cap Source-1 rows processed (also caps S2/S3 proportionally for a quick smoke run)")
+    parser.add_argument("--sample-s1", type=int, default=None, help="Cap Source-1 rows to N for a quick smoke run; Source-2/3 are capped to N*5 (~the true S1:S2+S3 ratio) so blocking/matching on the sample stays realistic")
     parser.add_argument("--workers", type=int, default=None)
-    parser.add_argument("--mine-aliases", action="store_true", help="(Re)mine cache/state_aliases.json and cache/city_aliases.json from train before preprocessing")
+    parser.add_argument("--data-dir", type=str, default=None, help="Override the dataset root (contains train/ and test/); defaults to student_resource/dataset")
+    parser.add_argument("--cache-dir", type=str, default=None, help="Override the cache root (alias maps + preprocessed/ output); defaults to ./cache")
+    parser.add_argument("--mine-aliases", action="store_true", help="(Re)mine <cache-dir>/state_aliases.json and city_aliases.json from train before preprocessing")
     args = parser.parse_args()
+
+    if args.data_dir:
+        os.environ["PREPROCESS_DATA_DIR"] = args.data_dir
+        DATA_DIR = Path(args.data_dir)
+    if args.cache_dir:
+        os.environ["PREPROCESS_CACHE_DIR"] = args.cache_dir
+        CACHE_DIR = Path(args.cache_dir)
 
     if args.mine_aliases or not (CACHE_DIR / "state_aliases.json").exists():
         print("Mining state/city alias maps from train...")
         t0 = time.time()
-        mine_alias_maps()
+        mine_alias_maps(data_dir=DATA_DIR, cache_dir=CACHE_DIR, sample_s1=args.sample_s1)
         print(f"  done in {time.time() - t0:.1f}s")
 
     split_dir = DATA_DIR / args.split
@@ -634,8 +664,9 @@ def main():
     for i in (1, 2, 3):
         src = split_dir / f"{prefix}_source{i}.tsv"
         out = out_dir / f"{args.split}_source{i}.parquet"
+        sample_n = args.sample_s1 if i == 1 else (args.sample_s1 * 5 if args.sample_s1 else None)
         t0 = time.time()
-        n = preprocess_file(src, out, sample_n=args.sample_s1, n_workers=args.workers)
+        n = preprocess_file(src, out, sample_n=sample_n, n_workers=args.workers)
         dt = time.time() - t0
         print(f"source{i}: {n:,} rows -> {out} in {dt:.1f}s ({n / dt if dt else 0:,.0f} rec/s)")
 
