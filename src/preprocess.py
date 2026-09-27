@@ -17,6 +17,8 @@ import unicodedata
 from pathlib import Path
 
 import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
 
 try:
     from indic_transliteration import sanscript
@@ -341,25 +343,6 @@ _CITY_SEED = {
 _alias_cache: dict[str, dict] = {}
 
 
-# city_aliases.json was mined with a min-count-3 filter (see mine_alias_maps),
-# which still lets through noisy short-key entries (2-letter fragments,
-# singleton-ish counts) that state_aliases.json's higher-frequency entries
-# don't suffer from as much. Prune those harder at load time rather than
-# re-mining: drop any city alias with count < 20 or a key under 3 characters.
-_CITY_ALIAS_MIN_COUNT = 20
-_CITY_ALIAS_MIN_KEY_LEN = 3
-
-
-def _prune_city_aliases(city_map: dict) -> dict:
-    pruned = {}
-    for country, table in city_map.items():
-        pruned[country] = {
-            k: v for k, v in table.items()
-            if len(k) >= _CITY_ALIAS_MIN_KEY_LEN and v.get("count", 0) >= _CITY_ALIAS_MIN_COUNT
-        }
-    return pruned
-
-
 def _load_alias_maps():
     if _alias_cache:
         return _alias_cache["state"], _alias_cache["city"]
@@ -367,10 +350,19 @@ def _load_alias_maps():
     city_path = CACHE_DIR / "city_aliases.json"
     state_map = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else dict(_STATE_SEED)
     city_map = json.loads(city_path.read_text(encoding="utf-8")) if city_path.exists() else dict(_CITY_SEED)
-    city_map = _prune_city_aliases(city_map)
     _alias_cache["state"] = state_map
     _alias_cache["city"] = city_map
     return state_map, city_map
+
+
+def load_alias_maps():
+    """Public accessor for the raw (unpruned, with counts) state/city alias
+    maps — used by src/features.py to decide per-pair whether a city_canon
+    value is trustworthy enough to compare (see CITY_ALIAS_MIN_COUNT there).
+    Preprocessing itself (state_canon/city_canon in the parquet output) always
+    uses these maps unpruned; any confidence filtering happens downstream at
+    feature time, not by changing what gets written to the parquet."""
+    return _load_alias_maps()
 
 
 def _canon_lookup(alias_map: dict, country: str, value: str) -> str:
@@ -627,29 +619,69 @@ def _read_rows(path: Path, sample_n: int | None = None):
                 return
 
 
-def preprocess_file(src_path: Path, out_path: Path, sample_n: int | None = None, n_workers: int | None = None):
+def _records_to_table(records: list[dict]) -> pa.Table:
+    df = pd.DataFrame.from_records(records)[_OUTPUT_COLUMNS]
+    df["addr_components"] = df["addr_components"].apply(list)
+    df["addr_numbers"] = df["addr_numbers"].apply(list)
+    return pa.Table.from_pandas(df, preserve_index=False)
+
+
+def preprocess_file(
+    src_path: Path,
+    out_path: Path,
+    sample_n: int | None = None,
+    n_workers: int | None = None,
+    batch_size: int = 20_000,
+) -> int:
+    """Stream `src_path` -> `out_path` in batches via pyarrow.ParquetWriter,
+    so memory holds at most one batch of records at a time instead of the
+    whole (potentially multi-million-row) file. This is what made the earlier
+    unsampled local run thrash on an 8GB machine — see AGENT_LOG.md."""
     n_workers = n_workers or os.cpu_count() or 1
     rows = _read_rows(src_path, sample_n=sample_n)
-
-    records = []
-    if n_workers > 1:
-        with mp.Pool(n_workers) as pool:
-            for rec in pool.imap(_process_row, rows, chunksize=2000):
-                records.append(rec)
-    else:
-        for r in rows:
-            records.append(_process_row(r))
-
-    df = pd.DataFrame.from_records(records)
-    if df.empty:
-        df = pd.DataFrame(columns=_OUTPUT_COLUMNS)
-    else:
-        df = df[_OUTPUT_COLUMNS]
-        df["addr_components"] = df["addr_components"].apply(list)
-        df["addr_numbers"] = df["addr_numbers"].apply(list)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_parquet(out_path, index=False)
-    return len(df)
+
+    writer: pq.ParquetWriter | None = None
+    total = 0
+
+    def flush(batch: list[dict]):
+        nonlocal writer, total
+        if not batch:
+            return
+        table = _records_to_table(batch)
+        if writer is None:
+            writer = pq.ParquetWriter(str(out_path), table.schema)
+        else:
+            table = table.cast(writer.schema)
+        writer.write_table(table)
+        total += len(batch)
+
+    try:
+        batch: list[dict] = []
+        if n_workers > 1:
+            with mp.Pool(n_workers) as pool:
+                for rec in pool.imap(_process_row, rows, chunksize=2000):
+                    batch.append(rec)
+                    if len(batch) >= batch_size:
+                        flush(batch)
+                        batch = []
+        else:
+            for r in rows:
+                batch.append(_process_row(r))
+                if len(batch) >= batch_size:
+                    flush(batch)
+                    batch = []
+        flush(batch)
+    finally:
+        if writer is not None:
+            writer.close()
+
+    if total == 0:
+        # No data rows at all: still write a correctly-typed empty file.
+        empty = pd.DataFrame(columns=_OUTPUT_COLUMNS)
+        pq.write_table(pa.Table.from_pandas(empty, preserve_index=False), str(out_path))
+
+    return total
 
 
 def main():
